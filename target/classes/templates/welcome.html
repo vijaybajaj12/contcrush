@@ -5,31 +5,34 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Spring Boot Thymeleaf Hello World Example</title>
+<title>NS Container Team</title>
 
 <link rel="stylesheet"
 	th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/css/main.css}" />
-
 </head>
 
-<body>
-
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a class="navbar-brand" href="#">Mkyong.com</a>
-	</nav>
+<body bgcolor="lightblue">
 
 	<main role="main" class="container">
-
 	<div class="starter-template">
-		<h1>Spring Boot Web Thymeleaf Example</h1>
-		<h2>
-			<span th:text="'Hello, ' + ${message}"></span>
-		</h2>
+		<h1>Welcome to our first Cloud Based App</h1>
 	</div>
+<!-- 	<div class="starter-template"> -->
+<!-- 		<h1>Welcome to our first Cloud Based App</h1> -->
+		<!-- 		<h2> -->
+		<!-- 			<span th:text="'Hello, ' + ${message}"></span> -->
+		<!-- 		</h2> -->
+<!-- 	</div> -->
 
+	<marquee width="60%" direction="right" height="100px">
+		<center>
+			<img src="/images/cloud.jpg" />
+		</center>
+	</marquee>
+	<h3>-------NS Container Crush Team--------</h3>
 	<ol>
-		<li th:each="task : ${tasks}" th:text="${task}"></li>
+		<li th:each="task : ${tasks}" th:text="${task}" style="color:blue"></li>
 	</ol>
 
 	</main>
