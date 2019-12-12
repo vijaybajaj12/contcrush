@@ -33,15 +33,16 @@ public class ProductCatalogueService {
 				String segmentName = (String) obj[1];
 				prodCatDto = new ProductCatalogueDto(segmentId, segmentName);
 				productCatalogueDtoList.add(prodCatDto);
+				prodCatDto = null;
 			}
 		}
 		
 		return productCatalogueDtoList;
 	}
 	
-	public List<Family> findFamiliesBySegment(String segmentId) {
+	public List<Family> findFamiliesBySegment(String segment) {
 		List<Family> familyList = null ;
-		List<Object[]> objList = repository.findFamiliesBySegment(segmentId);
+		List<Object[]> objList = repository.findFamiliesBySegment(segment);
 		
 		if (objList !=null && !objList.isEmpty()) {
 			familyList = new ArrayList<>();
@@ -51,17 +52,38 @@ public class ProductCatalogueService {
 				String familyName = (String) obj[1];
 				family = new Family(familyId, familyName);
 				familyList.add(family);
+				family = null; // will be sent for garbage collection
 			}
 		}
 		
 		return familyList;
 	}
 	
-	public List<ProductCatalogue> findProductCatalogues() {
+	public List<Commodity> findCommoditiesByClass(String classId) {
+		List<Commodity> commodityList = null ;
+		List<Object[]> objList = repository.findCommoditiesByClass(classId);
 		
-		//return processProductCatalogueResults(repository.findAll());
+		if (objList !=null && !objList.isEmpty()) {
+			commodityList = new ArrayList<>();
+			Commodity commodity;
+			for (Object[] obj:objList) {
+				String commodityId = (String) obj[0];
+				String commodityName = (String) obj[1];
+				commodity = new Commodity(commodityId, commodityName);
+				commodityList.add(commodity);
+				commodity = null;
+			}
+		}
 		
-		return repository.findAll();
+		return commodityList;
+	}
+	
+	// TODO To be removed
+	public List<ProductCatalogueDto> findProductCatalogues() {
+		
+		return processProductCatalogueResults(repository.findAll());
+		
+		//return repository.findAll();
 	}
 	
 	
@@ -72,6 +94,7 @@ public class ProductCatalogueService {
 //
 //	}
 	
+	// TODO To be removed
 	private List<ProductCatalogueDto> processProductCatalogueResults(List<ProductCatalogue> productCatalogueList) {
 	
 		List<ProductCatalogueDto> productCatalogueDtoList = new ArrayList<>();
@@ -94,6 +117,7 @@ public class ProductCatalogueService {
 		return productCatalogueDtoList;
 	}
 	
+	// TODO To be removed
 	private List<Family> processFamilyElements(List<Family> familyList, ProductCatalogue prodCat) {
 		
 		Map<String, List<ClassLevel>> familyMap = new HashMap<>();
@@ -118,6 +142,7 @@ public class ProductCatalogueService {
 		return familyList1;
 	}
 	
+	// TODO To be removed
 	private List<ClassLevel> processClassElements(List<ClassLevel> classList, ProductCatalogue prodCat) {
 		
 		Map<String, List<Commodity>> classMap = new HashMap<>();
