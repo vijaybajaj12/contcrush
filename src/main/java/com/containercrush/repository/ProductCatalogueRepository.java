@@ -13,9 +13,9 @@ import com.containercrush.entity.ProductCataloguePK;
 @Repository
 public interface ProductCatalogueRepository extends JpaRepository<ProductCatalogue, ProductCataloguePK > {
 	
-	public static final String FIND_SEGMENTS = "SELECT distinct segment, segment_Name FROM XXIBM_Product_Catalogue";
-	public static final String FIND_FAMILIES_BY_SEGMENT = "select distinct family, family_name FROM XXIBM_Product_Catalogue where segment = :segment";
-	public static final String FIND_COMMODITIES_BY_CLASS = "select distinct commodity, commodity_name FROM XXIBM_Product_Catalogue where class = :classId";
+	public static final String FIND_SEGMENTS = "SELECT distinct segment, segment_Name FROM XXIBM_PRODUCT_CATALOGUE";
+	public static final String FIND_FAMILIES_BY_SEGMENT = "select distinct family, family_name FROM XXIBM_PRODUCT_CATALOGUE where segment = :segment";
+	public static final String FIND_COMMODITIES_BY_CLASS = "select distinct commodity, commodity_name FROM XXIBM_PRODUCT_CATALOGUE where class = :classId";
 
 	@Query(value = FIND_SEGMENTS, nativeQuery = true)
 	public List<Object[]> findSegments();
