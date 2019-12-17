@@ -1,4 +1,4 @@
-package com.containercrush.entity;
+package com.ibm.nscontainercrush.entity;
 
 import java.io.Serializable;
 

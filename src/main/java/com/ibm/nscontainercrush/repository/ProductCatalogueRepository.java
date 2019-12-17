@@ -1,4 +1,4 @@
-package com.containercrush.repository;
+package com.ibm.nscontainercrush.repository;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.containercrush.entity.ProductCatalogue;
-import com.containercrush.entity.ProductCataloguePK;
+import com.ibm.nscontainercrush.entity.ProductCatalogue;
+import com.ibm.nscontainercrush.entity.ProductCataloguePK;
 
 @Repository
 public interface ProductCatalogueRepository extends JpaRepository<ProductCatalogue, ProductCataloguePK > {

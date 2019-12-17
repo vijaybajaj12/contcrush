@@ -1,4 +1,4 @@
-package com.containercrush.dto;
+package com.ibm.nscontainercrush.dto;
 
 import java.util.List;
 

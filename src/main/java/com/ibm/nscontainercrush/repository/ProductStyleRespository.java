@@ -1,11 +1,11 @@
-package com.containercrush.repository;
+package com.ibm.nscontainercrush.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.containercrush.entity.ProductStyle;
+import com.ibm.nscontainercrush.entity.ProductStyle;
 
 	@Repository
 	public interface ProductStyleRespository extends JpaRepository<ProductStyle, Integer> {

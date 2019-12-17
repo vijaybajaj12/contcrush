@@ -1,4 +1,4 @@
-package com.containercrush.controller;
+package com.ibm.nscontainercrush.controller;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.containercrush.dto.Commodity;
-import com.containercrush.dto.Family;
-import com.containercrush.dto.ProductCatalogueDto;
-import com.containercrush.service.ProductCatalogueService;
+import com.ibm.nscontainercrush.dto.Commodity;
+import com.ibm.nscontainercrush.dto.Family;
+import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
+import com.ibm.nscontainercrush.service.ProductCatalogueService;
 
 @RestController
 @RequestMapping(value = "/koolApp")

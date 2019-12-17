@@ -1,4 +1,4 @@
-package com.containercrush.controller;
+package com.ibm.nscontainercrush.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

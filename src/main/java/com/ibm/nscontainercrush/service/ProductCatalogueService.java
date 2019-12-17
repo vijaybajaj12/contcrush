@@ -1,4 +1,4 @@
-package com.containercrush.service;
+package com.ibm.nscontainercrush.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,12 +8,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.containercrush.dto.ClassLevel;
-import com.containercrush.dto.Commodity;
-import com.containercrush.dto.Family;
-import com.containercrush.dto.ProductCatalogueDto;
-import com.containercrush.entity.ProductCatalogue;
-import com.containercrush.repository.ProductCatalogueRepository;
+import com.ibm.nscontainercrush.dto.ClassLevel;
+import com.ibm.nscontainercrush.dto.Commodity;
+import com.ibm.nscontainercrush.dto.Family;
+import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
+import com.ibm.nscontainercrush.entity.ProductCatalogue;
+import com.ibm.nscontainercrush.repository.ProductCatalogueRepository;
 
 @Service
 public class ProductCatalogueService {

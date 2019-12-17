@@ -1,4 +1,4 @@
-package com.containercrush.controller;
+package com.ibm.nscontainercrush.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.containercrush.entity.ProductStyle;
-import com.containercrush.repository.ProductStyleRespository;
+import com.ibm.nscontainercrush.entity.ProductStyle;
+import com.ibm.nscontainercrush.repository.ProductStyleRespository;
 
 @RestController
 @RequestMapping(value = "/productStyle")
