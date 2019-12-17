@@ -37,4 +37,11 @@ public class WelcomeController {
         return "welcome"; //view
     }
 
+
+    @GetMapping("/koolApp")
+    public String openKoolApp()
+             {
+          return "koolApp"; //view
+    }
+    
 }
