@@ -1,15 +1,16 @@
 package com.ibm.nscontainercrush.controller;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.Arrays;
 import java.util.List;
 
-@Controller
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+@RestController
 public class WelcomeController {
 
     // inject via application.properties
@@ -19,29 +20,16 @@ public class WelcomeController {
     private List<String> tasks = Arrays.asList("Sanjoy SA", "Vijay Bajaj", "Sanjib Pal", "Amitava Nandy", "Arkoprava Mukherjee");
 
     @GetMapping("/")
-    public String main(Model model) {
+    public ModelAndView main(Model model) {
         model.addAttribute("message", message);
         model.addAttribute("tasks", tasks);
 
-        return "welcome"; //view
+        return new ModelAndView("welcome"); //view
     }
-
-    // /hello?name=kotlin
-    @GetMapping("/hello")
-    public String mainWithParam(
-            @RequestParam(name = "name", required = false, defaultValue = "") 
-			String name, Model model) {
-
-        model.addAttribute("message", name);
-
-        return "welcome"; //view
-    }
-
-
-    @GetMapping("/koolApp")
-    public String openKoolApp()
-             {
-          return "koolApp"; //view
+    
+    @GetMapping("/launchKoolApp")
+    public ModelAndView launchKoolApp(){
+          return new ModelAndView("koolApp"); //view
     }
     
 }
