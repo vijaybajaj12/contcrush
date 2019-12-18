@@ -12,6 +12,7 @@ import com.ibm.nscontainercrush.dto.ClassLevel;
 import com.ibm.nscontainercrush.dto.Commodity;
 import com.ibm.nscontainercrush.dto.Family;
 import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
+import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.entity.ProductCatalogue;
 import com.ibm.nscontainercrush.repository.ProductCatalogueRepository;
 
@@ -59,23 +60,76 @@ public class ProductCatalogueService {
 		return familyList;
 	}
 	
-	public List<Commodity> findCommoditiesByClass(String classId) {
-		List<Commodity> commodityList = null ;
+	public List<SkuItem> findCommoditiesByClass(String classId) {
 		List<Object[]> objList = repository.findCommoditiesByClass(classId);
 		
-		if (objList !=null && !objList.isEmpty()) {
-			commodityList = new ArrayList<>();
-			Commodity commodity;
-			for (Object[] obj:objList) {
-				String commodityId = (String) obj[0];
-				String commodityName = (String) obj[1];
-				commodity = new Commodity(commodityId, commodityName);
-				commodityList.add(commodity);
-				commodity = null;
+		return processResults(objList);
+	}
+	
+	private List<SkuItem> processResults (List<Object[]> resultList) {
+		
+		List<SkuItem> processedList = null;
+		if (resultList !=null && !resultList.isEmpty()) {
+			processedList = new ArrayList<>();
+			SkuItem skuItem;
+			for (Object[] obj:resultList) {
+				skuItem = new SkuItem();
+				if (obj[0] != null) {
+					skuItem.setStyleItemNumber((String)obj[0]);
+				}
+				if (obj[1] != null) {
+					skuItem.setStyleDescription((String)obj[1]);
+				}
+				if (obj[2] != null) {
+					skuItem.setStyleLongDescription((String)obj[2]);
+				}
+				if (obj[3] != null) {
+					skuItem.setStyleCatalogueCategory((String)obj[3]);
+				}
+				if (obj[4] != null) {
+					skuItem.setStyleBrand((String)obj[4]);
+				}
+				if (obj[5] != null) {
+					skuItem.setSkuItemNumber((String)obj[5]);
+				}
+				if (obj[6] != null) {
+					skuItem.setSkuUnitOfMeasure((String)obj[6]);
+				}
+				if (obj[7] != null) {
+					skuItem.setSkuAttribute1((String)obj[7]);
+				}
+				if (obj[8] != null) {
+					skuItem.setSkuAttribute2((String)obj[8]);
+				}
+				if (obj[9] != null) {
+					skuItem.setSkuAttributeValue1((String)obj[9]);
+				}
+				if (obj[10] != null) {
+					skuItem.setSkuAttributeValue2((String)obj[10]);
+				}
+				if (obj[11] != null) {
+					skuItem.setPriceId((String)obj[11]);
+				}
+				if (obj[12] != null) {
+					skuItem.setListPrice((String)obj[12]);
+				}
+				if (obj[13] != null) {
+					skuItem.setDiscount((String)obj[13]);
+				}
+				if (obj[14] != null) {
+					skuItem.setInStock((String)obj[14]);
+				}
+				if (obj[15] != null) {
+					java.sql.Date sqlDate = (java.sql.Date) obj[15];
+					if (sqlDate != null) {
+						skuItem.setPriceEffectiveDate(new java.util.Date(sqlDate.getTime()));
+					}
+				}
+				processedList.add(skuItem);
+				skuItem = null;
 			}
 		}
-		
-		return commodityList;
+		return processedList;
 	}
 	
 	// TODO To be removed

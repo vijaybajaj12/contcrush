@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ibm.nscontainercrush.dto.Commodity;
 import com.ibm.nscontainercrush.dto.Family;
 import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
+import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.service.ProductCatalogueService;
 
 @RestController
@@ -41,7 +41,7 @@ public class KoolAppController {
 	}
 	
 	@GetMapping("/findCommoditiesByClass/{classId}")
-	public List<Commodity> findCommoditiesByClass(@PathVariable String classId) {
+	public List<SkuItem> findCommoditiesByClass(@PathVariable String classId) {
 		return service.findCommoditiesByClass(classId);
 	}
 }
