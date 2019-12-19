@@ -51,4 +51,9 @@ public class KoolAppController {
 	public List<SkuItem> findCommoditiesByClass(@PathVariable String classId) {
 		return service.findCommoditiesByClass(classId);
 	}
+	
+	@GetMapping("/findItemsByText/{text}")
+	public List<SkuItem> findItemsByText(@PathVariable String text) {
+		return service.findItemsByText(text);
+	}
 }
