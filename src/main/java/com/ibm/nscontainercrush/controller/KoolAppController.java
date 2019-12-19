@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ibm.nscontainercrush.dto.ClassLevel;
 import com.ibm.nscontainercrush.dto.Family;
 import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
 import com.ibm.nscontainercrush.dto.SkuItem;
@@ -39,6 +40,12 @@ public class KoolAppController {
 	public List<Family> findFamiliesBySegment(@PathVariable String segmentId) {
 		return service.findFamiliesBySegment(segmentId);
 	}
+	
+	@GetMapping("/findClassByFamily/{familyId}")
+	public List<ClassLevel> findClassByFamily(@PathVariable String familyId) {
+		return service.findClassByFamily(familyId);
+	}
+	
 	
 	@GetMapping("/findCommoditiesByClass/{classId}")
 	public List<SkuItem> findCommoditiesByClass(@PathVariable String classId) {

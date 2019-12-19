@@ -73,12 +73,22 @@
 		        	</div>	
        			<div class="form-group">
   						<label for="sel2">Select a family:</label>
-    					<select name="ddlFamily" ng-model="Family"  class="form-control">
+    					<select name="ddlFamily" ng-model="Family" ng-change="OnFamilyChange()"  class="form-control">
   		        	        <option ng-repeat="f in Families" value="{{f.familyId}}">
          		   		    {{f.familyName}}
             				</option>
    				   		</select>		
 		        </div>	
+		        
+		        <div class="form-group">
+  						<label for="sel2">Select a Class:</label>
+    					<select name="ddlClass" ng-model="Classes"  ng-change="OnClassChange()" class="form-control">
+  		        	        <option ng-repeat="c in Classes" value="{{c.classId}}">
+         		   		    {{c.className}}
+            				</option>
+   				   		</select>		
+		        </div>
+		        		        
     			</td>
 			<td>
 <div class="row">

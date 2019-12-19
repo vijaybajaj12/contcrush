@@ -60,6 +60,25 @@ public class ProductCatalogueService {
 		return familyList;
 	}
 	
+	public List<ClassLevel> findClassByFamily(String family) {
+		List<ClassLevel> classList = null ;
+		List<Object[]> objList = repository.findClassByFamily(family);
+		
+		if (objList !=null && !objList.isEmpty()) {
+			classList = new ArrayList<>();
+			ClassLevel classLvl;
+			for (Object[] obj:objList) {
+				String classId = (String) obj[0];
+				String className = (String) obj[1];
+				classLvl = new ClassLevel(classId, className);
+				classList.add(classLvl);
+				classLvl = null; // will be sent for garbage collection
+			}
+		}
+		
+		return classList;
+	}
+	
 	public List<SkuItem> findCommoditiesByClass(String classId) {
 		List<Object[]> objList = repository.findCommoditiesByClass(classId);
 		
