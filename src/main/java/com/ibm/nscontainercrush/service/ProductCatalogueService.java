@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import com.ibm.nscontainercrush.dto.ClassLevel;
 import com.ibm.nscontainercrush.dto.Commodity;
@@ -81,6 +82,16 @@ public class ProductCatalogueService {
 	
 	public List<SkuItem> findCommoditiesByClass(String classId) {
 		List<Object[]> objList = repository.findCommoditiesByClass(classId);
+		
+		return processResults(objList);
+	}
+	
+	public List<SkuItem> findItemsByText(String textStr) {
+		
+		List<Object[]> objList = null;
+		if (!StringUtils.isEmpty(textStr)) {
+			objList = repository.findItemsByText(textStr.toUpperCase());
+		}
 		
 		return processResults(objList);
 	}
