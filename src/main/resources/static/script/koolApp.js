@@ -25,7 +25,7 @@ $scope.ClassId1=null;
          }  
  
  $scope.OnClassChange = function() {
-  
+  //alert($scope.Classes);
    $http.get("/koolApp/findCommoditiesByClass/"+$scope.Classes).
             then(function (responses) {  
                $scope.comodity = responses.data;
