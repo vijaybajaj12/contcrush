@@ -24,7 +24,7 @@ public class WelcomeController {
         model.addAttribute("message", message);
         model.addAttribute("tasks", tasks);
 
-        return new ModelAndView("welcome"); //view
+        return new ModelAndView("koolApp"); //view
     }
     
     @GetMapping("/launchKoolApp")
