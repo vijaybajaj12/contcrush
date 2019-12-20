@@ -8,42 +8,95 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
-<script src="/script/koolApp.js" type="text/javascript"></script>
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+  <script src="/script/koolApp.js" type="text/javascript"></script>
+<style>
 
+hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: groove;
+  border-width: 1px;
+  color: red;
+} 
+body{
+    background: #db5046;
+}
+
+body {
+background: #db5046;
+}
+
+h1{
+padding-top: 10px;
+font-size: 36px;
+padding:0px;
+margin: 0px;
+line-height:100px;
+text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+width:310px;
+float:left;
+}
+.banner{
+width:100%;
+height: 30px;
+margin:1px auto;
+padding-top: 1px;
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+-moz-border-radius: 10px;
+-webkit-border-radius: 15px;
+padding-left:210px;
+}
+.banner1{
+color:#2B8EAC;
+background: #2ca2c9 url(images/Banner.jpg) no-repeat center left;
+font-family: "Century Gothic";
+}
+.transparent-bg{
+ background: rgba(173,216,230,1);
+    padding: 0px;
+    color: #2ca2c9;
+    text-align: center;
+    font-size: 26px;
+}
+</style>
 </head>
 <body>
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div class="banner banner1">
+  <h4><b>Welcome to Kool App</b></h4>
+  </div>
+<div id="myCarousel" class="carousel slide transparent-bg" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
   </ol>
-
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
       <div class="jumbotron jumbotron-fluid">
        <div class="container" align="center">
-       		<h3>Welcome to Kool App</h3> 
-  			<p>Test Massage123456</p>
+              <img src="images/Sales.jpg" height="130px" width="900px">
+       			
   			</div>
       </div>
      </div>
     <div class="item">
       <div class="jumbotron jumbotron-fluid">
        <div class="container" align="center">
-       		<h3>Welcome to Kool App</h3> 
-  			<p>Test Massage1</p>
+       			<img src="images/Discount.jpg" height="130px" width="900px">
   			</div>
       </div>
     </div>
     <div class="item">
       <div class="jumbotron jumbotron-fluid">
        <div class="container" align="center">
-       		<h3>Welcome to Kool App</h3> 
-  			<p>Test Massage2</p>
+       			<img src="images/XMAS.jpg" height="130px" width="900px">
   			</div>
       </div>
    </div>
@@ -59,77 +112,46 @@
   </a>
 </div>
  <div class="container" ng-app="koolApp" ng-controller="koolCtrl">
- <div class="well well-lg">
-		<table class="table table-condensed">
-			<tr>
-				<td style="valign:top">
-		    		<div class="form-group">
+ <div class="well well-lg" >
+ <div class="form-inline">
+  	<div class="form-group">
   						<label for="sel1">Select a segment:</label>
-    					<select name="ddlSegment" ng-model="Segments" ng-change="OnSegmentChange({{s.segmentId}})"  class="form-control">
+    					<select name="ddlSegment" ng-model="Segments" ng-change="OnSegmentChange({{s.segmentId}})"  class="form-control"  style="width:250px">
   		                	<option ng-repeat="s in Segments" value="{{s.segmentId}}">
          		       			{{s.segmentName}}
             				</option>
-        				</select>		
-		        	</div>	
-       			<div class="form-group">
-  						<label for="sel2">Select a family:</label>
-    					<select name="ddlFamily" ng-model="Family" ng-change="OnFamilyChange()"  class="form-control">
+        				</select>
+        				<label for="sel2">Select a family:</label>
+    					<select name="ddlFamily" ng-model="Family" ng-change="OnFamilyChange()"  class="form-control"  style="width:250px">
   		        	        <option ng-repeat="f in Families" value="{{f.familyId}}">
          		   		    {{f.familyName}}
             				</option>
-   				   		</select>		
-		        </div>	
-		        
-		        <div class="form-group">
-  						<label for="sel2">Select a Class:</label>
-    					<select name="ddlClass" ng-model="Classes"  ng-change="OnClassChange()" class="form-control">
+   				   		</select>
+   				   		<label for="sel2">Select a Class:</label>
+    					<select name="ddlClass" ng-model="Classes"  ng-change="OnClassChange()" class="form-control"  style="width:250px">
   		        	        <option ng-repeat="c in Classes" value="{{c.classId}}">
          		   		    {{c.className}}
             				</option>
    				   		</select>		
-		        </div>
-		        		        
-    			</td>
-			<td>
-<div class="row">
-  <div class="col-md-4">
-    <div class="thumbnail">
-      <a href="/images/train_on_cloud.jpg">
-        <img src="/images/train_on_cloud.jpg" alt="Lights" style="width:100%">
-        <div class="caption">
-          <p>Lorem ipsum...</p>
-        </div>
-      </a>
+		        	</div>	
+ <p></p>
+ <hr bgcolor="red">
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="thumbnail">
-      <a href="/w3images/nature.jpg">
-        <img src="/images/train_on_cloud.jpg" alt="Nature" style="width:100%">
-        <div class="caption">
-          <p>Lorem ipsum...</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="thumbnail">
-      <a href="/w3images/fjords.jpg">
-        <img src="/images/train_on_cloud.jpg" alt="Fjords" style="width:100%">
-        <div class="caption">
-          <p>Lorem ipsum...</p>
-        </div>
-      </a>
-    </div>
-  </div>
+			 <div class="row" >
+  				<div class="col-md-2" ng-repeat="c in comodity" >
+			    <div class="thumbnail" >
+			      <a href="/images/train_on_cloud.jpg">
+			        <img src="/images/train_on_cloud.jpg" alt="Lights" style="width:100%">
+			        <div class="caption">
+			          <p>{{ c.styleDescription }}</p>
+			          <p>Price: {{ c.listPrice }}</p>
+			          
+			        </div>
+			      </a>
+			    </div>
+ 			 </div>
+		</div>
+	</div>
 </div>
-	</td>
-</tr>
-</table>        
-
-</div>
-
-</div>
-
 </body>
 </html>
