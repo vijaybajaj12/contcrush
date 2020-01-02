@@ -46,6 +46,12 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.ibm.watson</groupId>
+			<artifactId>speech-to-text</artifactId>
+			<version>8.1.0</version>
+		</dependency>
+		
 		
 <dependency>
 <groupId>org.postgresql</groupId>
