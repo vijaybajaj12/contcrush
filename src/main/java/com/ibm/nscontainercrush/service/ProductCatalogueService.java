@@ -16,12 +16,16 @@ import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
 import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.entity.ProductCatalogue;
 import com.ibm.nscontainercrush.repository.ProductCatalogueRepository;
+import com.ibm.nscontainercrush.repository.ProductItemRepositoryImpl;
 
 @Service
 public class ProductCatalogueService {
 	
 	@Autowired 
 	ProductCatalogueRepository repository;
+	
+	@Autowired
+	ProductItemRepositoryImpl productItemRepository;
 	
 	public List<ProductCatalogueDto> findSegments() {
 		List<ProductCatalogueDto> productCatalogueDtoList = null ;
@@ -82,6 +86,22 @@ public class ProductCatalogueService {
 	
 	public List<SkuItem> findCommoditiesByClass(String classId) {
 		List<Object[]> objList = repository.findCommoditiesByClass(classId);
+		
+		return processResults(objList);
+	}
+	
+	/**
+	 * This method will be used to find the sku item list based on strList with possible
+	 * matching values
+	 * @param strList
+	 * @return
+	 */
+	public List<SkuItem> findItemsByTextArray(List<String> strList) {
+		
+		List<Object[]> objList = null;
+		if (strList != null) {
+			objList = productItemRepository.getProductItemsByTextArray(strList);
+		}
 		
 		return processResults(objList);
 	}
