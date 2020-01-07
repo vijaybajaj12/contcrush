@@ -1,6 +1,7 @@
 package com.ibm.nscontainercrush.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sound.sampled.AudioFormat;
@@ -26,12 +27,14 @@ import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
 @Service
 public class SpeechToTextService {
 	
-	private final double base_confidence = 0.7d;
+	private final double base_confidence = 0.1d;
+	
+	private SpeechRecognitionResults srResults;
 	
 	public List<String> convertSpeechToText() {
 		
 		try {
-			SpeechRecognitionResults srResults = invokeWatsonSpeechToTextProcess();
+			invokeWatsonSpeechToTextProcess();
 			return extractWordsFromWatsonResult(srResults);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -47,10 +50,10 @@ public class SpeechToTextService {
 		return null;
 	}
 		
-	public SpeechRecognitionResults invokeWatsonSpeechToTextProcess() throws InterruptedException, LineUnavailableException {
+	public void invokeWatsonSpeechToTextProcess() throws InterruptedException, LineUnavailableException {
 		Authenticator authenticator = new IamAuthenticator("6l6sM4JJ0tc1SHc2fefR5PvvZO67WbcV95jGShAXnl_w");
 		SpeechToText service = new SpeechToText(authenticator);
-		SpeechRecognitionResults srResults = null;
+		//SpeechRecognitionResults srResults = null;
 		// Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
 		int sampleRate = 16000;
 		AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
@@ -67,7 +70,14 @@ public class SpeechToTextService {
 
 		AudioInputStream audio = new AudioInputStream(line);
 
-		RecognizeOptions options = new RecognizeOptions.Builder().audio(audio).interimResults(false).timestamps(true)
+		RecognizeOptions options = new RecognizeOptions.Builder()
+				.model("en-US_BroadbandModel")
+				.audio(audio)
+				.keywords(Arrays.asList("shirt", "trouser", "Coat", "Skirt","Blouse"))
+				.keywordsThreshold((float) 0.6)
+				.maxAlternatives(3)
+				.interimResults(false)
+				.timestamps(true)
 				.wordConfidence(true)
 				// .inactivityTimeout(5) // use this to stop listening when the speaker pauses,
 				// i.e. for 5s
@@ -77,22 +87,33 @@ public class SpeechToTextService {
 			@Override
 			public void onTranscription(SpeechRecognitionResults speechResults) {
 				// TODO -need to capture speechResults
-				// srResults=speechResults;
+				
+				storeResults (speechResults);
+				//srResults=speechResults;
 				System.out.println(speechResults);
+			}
+			
+			@Override
+			public void onTranscriptionComplete() {
+				System.out.println("onTranscriptionComplete");
 			}
 			
 		});
 
-		System.out.println("Listening to your voice for the next 30s...");
-		Thread.sleep(10 * 1000);
+		System.out.println("Listening to your voice for the next 5s...");
+		Thread.sleep(5 * 1000);
 
 		// closing the WebSockets underlying InputStream will close the WebSocket
 		// itself.
 		line.stop();
 		line.close();
-
+		
+		Thread.sleep(5 * 1000); // to ensure that we get the SpeechRecognitionResults
 		System.out.println("Fin.");
-		return srResults;
+	}
+	
+	private void storeResults(SpeechRecognitionResults speechResults) {
+		srResults = speechResults;
 	}
 	
 	/**
@@ -100,12 +121,12 @@ public class SpeechToTextService {
 	 * @param srResult
 	 * @return
 	 */
-	private List<String> extractWordsFromWatsonResult(SpeechRecognitionResults srResult) {
+	private List<String> extractWordsFromWatsonResult(SpeechRecognitionResults spReResult) {
 
 		List<String> extractedWordList = null;
 
-		if (srResult != null && !srResult.getResults().isEmpty()) {
-			for (SpeechRecognitionResult speechResult : srResult.getResults()) {
+		if (spReResult != null && !spReResult.getResults().isEmpty()) {
+			for (SpeechRecognitionResult speechResult : spReResult.getResults()) {
 				if (speechResult.isXFinal()) {
 					int k = 0;
 					extractedWordList = new ArrayList<>();
@@ -128,6 +149,7 @@ public class SpeechToTextService {
 			}
 		}
 
+		srResults = null;
 		return extractedWordList;
 	}
 }
