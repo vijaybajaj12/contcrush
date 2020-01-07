@@ -63,4 +63,10 @@ public class KoolAppController {
 	public List<SkuItem> findItemsByTextArray(@RequestBody List<String> text) {
 		return service.findItemsByTextArray(text);
 	}
+	
+	@GetMapping("/findItemsByBrandAndDiscount/{brand}/{discount}")
+	public List<SkuItem> findItemsByBrandAndDiscount(@PathVariable String brand, @PathVariable float discount) {
+		return service.findItemsByBrandAndDiscount(brand, discount);
+	}
+	
 }

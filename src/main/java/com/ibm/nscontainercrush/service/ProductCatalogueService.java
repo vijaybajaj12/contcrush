@@ -116,6 +116,24 @@ public class ProductCatalogueService {
 		return processResults(objList);
 	}
 	
+	/**
+	 * This method will be used to find the sku item list based on brand and discount
+	 * @param brand
+	 * @param discount
+	 * @return
+	 */
+	public List<SkuItem> findItemsByBrandAndDiscount(String brand, float discount) {
+		
+		if (!StringUtils.isEmpty(brand)) {
+			String brandStr = brand.toUpperCase();
+			List<Object[]> objList = repository.findItemsByBrandAndDiscount(brandStr, discount);
+			return processResults(objList);
+		} 
+		
+		return null;
+		
+	}
+	
 	private List<SkuItem> processResults (List<Object[]> resultList) {
 		
 		List<SkuItem> processedList = null;
