@@ -22,6 +22,7 @@ public class SkuItem {
 	private String discount;
 	private String inStock;
 	private Date priceEffectiveDate;
+	private String imageRetrievalUrl;
 	
 	public String getStyleItemNumber() {
 		return styleItemNumber;
@@ -119,11 +120,13 @@ public class SkuItem {
 	public void setPriceEffectiveDate(Date priceEffectiveDate) {
 		this.priceEffectiveDate = priceEffectiveDate;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((discount == null) ? 0 : discount.hashCode());
+		result = prime * result + ((imageRetrievalUrl == null) ? 0 : imageRetrievalUrl.hashCode());
 		result = prime * result + ((inStock == null) ? 0 : inStock.hashCode());
 		result = prime * result + ((listPrice == null) ? 0 : listPrice.hashCode());
 		result = prime * result + ((priceEffectiveDate == null) ? 0 : priceEffectiveDate.hashCode());
@@ -154,6 +157,11 @@ public class SkuItem {
 			if (other.discount != null)
 				return false;
 		} else if (!discount.equals(other.discount))
+			return false;
+		if (imageRetrievalUrl == null) {
+			if (other.imageRetrievalUrl != null)
+				return false;
+		} else if (!imageRetrievalUrl.equals(other.imageRetrievalUrl))
 			return false;
 		if (inStock == null) {
 			if (other.inStock != null)
@@ -232,6 +240,10 @@ public class SkuItem {
 			return false;
 		return true;
 	}
-	
-
+	public String getImageRetrievalUrl() {
+		return imageRetrievalUrl;
+	}
+	public void setImageRetrievalUrl(String imageRetrievalUrl) {
+		this.imageRetrievalUrl = imageRetrievalUrl;
+	}
 }

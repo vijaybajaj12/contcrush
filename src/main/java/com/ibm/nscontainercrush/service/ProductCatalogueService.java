@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
+import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
 import com.ibm.nscontainercrush.dto.ClassLevel;
 import com.ibm.nscontainercrush.dto.Commodity;
 import com.ibm.nscontainercrush.dto.Family;
@@ -22,10 +23,13 @@ import com.ibm.nscontainercrush.repository.ProductItemRepositoryImpl;
 public class ProductCatalogueService {
 	
 	@Autowired 
-	ProductCatalogueRepository repository;
+	private ProductCatalogueRepository repository;
 	
 	@Autowired
-	ProductItemRepositoryImpl productItemRepository;
+	private ProductItemRepositoryImpl productItemRepository;
+	
+	@Autowired
+	private ImageRetrievalService imageRetrievalService;
 	
 	public List<ProductCatalogueDto> findSegments() {
 		List<ProductCatalogueDto> productCatalogueDtoList = null ;
@@ -158,7 +162,9 @@ public class ProductCatalogueService {
 					skuItem.setStyleBrand((String)obj[4]);
 				}
 				if (obj[5] != null) {
-					skuItem.setSkuItemNumber((String)obj[5]);
+					skuItem.setSkuItemNumber((String) obj[5]);
+					skuItem.setImageRetrievalUrl(imageRetrievalService.contructImageRetrievalUrl(skuItem.getSkuItemNumber()
+									+ ContainerCrushConstant.JPG_EXTENSION)); // set image retrieval url
 				}
 				if (obj[6] != null) {
 					skuItem.setSkuUnitOfMeasure((String)obj[6]);
