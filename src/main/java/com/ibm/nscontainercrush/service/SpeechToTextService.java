@@ -11,11 +11,13 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
+import com.ibm.nscontainercrush.config.SpeechToTextConfiguration;
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionAlternative;
@@ -27,7 +29,8 @@ import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
 @Service
 public class SpeechToTextService {
 	
-	private final double base_confidence = 0.1d;
+	@Autowired
+	private SpeechToTextConfiguration sttConfig;
 	
 	private SpeechRecognitionResults srResults;
 	
@@ -51,16 +54,15 @@ public class SpeechToTextService {
 	}
 		
 	public void invokeWatsonSpeechToTextProcess() throws InterruptedException, LineUnavailableException {
-		Authenticator authenticator = new IamAuthenticator("6l6sM4JJ0tc1SHc2fefR5PvvZO67WbcV95jGShAXnl_w");
+		Authenticator authenticator = new IamAuthenticator(sttConfig.getAuthenticatorKey());
 		SpeechToText service = new SpeechToText(authenticator);
-		//SpeechRecognitionResults srResults = null;
+
 		// Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
-		int sampleRate = 16000;
+		int sampleRate = sttConfig.getSampleRate();
 		AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
 		DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
 		if (!AudioSystem.isLineSupported(info)) {
-			System.out.println("Line not supported");
 			System.exit(0);
 		}
 
@@ -71,7 +73,7 @@ public class SpeechToTextService {
 		AudioInputStream audio = new AudioInputStream(line);
 
 		RecognizeOptions options = new RecognizeOptions.Builder()
-				.model("en-US_BroadbandModel")
+				.model(sttConfig.getModel())
 				.audio(audio)
 				.keywords(Arrays.asList("shirt", "trouser", "Coat", "Skirt","Blouse"))
 				.keywordsThreshold((float) 0.6)
@@ -137,7 +139,7 @@ public class SpeechToTextService {
 									&& !speechRecognitionAlter.getWordConfidence().isEmpty()) {
 								for (SpeechWordConfidence speechWordConfidence : speechRecognitionAlter
 										.getWordConfidence()) {
-									if (speechWordConfidence.getConfidence() > base_confidence) {
+									if (speechWordConfidence.getConfidence() > sttConfig.getBaseConfidence()) {
 										extractedWordList.add(speechWordConfidence.getWord());
 										k++;
 									}
