@@ -88,8 +88,27 @@ public class ProductCatalogueService {
 		return classList;
 	}
 	
-	public List<SkuItem> findCommoditiesByClass(String classId) {
+	public List<Commodity> findCommoditiesByClass(String classId) {
+		List<Commodity> commodityList = null ;
 		List<Object[]> objList = repository.findCommoditiesByClass(classId);
+		
+		if (objList !=null && !objList.isEmpty()) {
+			commodityList = new ArrayList<>();
+			Commodity commodity;
+			for (Object[] obj:objList) {
+				String commodityId = (String) obj[0];
+				String commodityName = (String) obj[1];
+				commodity = new Commodity(commodityId, commodityName);
+				commodityList.add(commodity);
+				commodity = null; // will be sent for garbage collection
+			}
+		}
+		
+		return commodityList;
+	}
+	
+	public List<SkuItem> findItemsByCommodity(String commodityId) {
+		List<Object[]> objList = repository.findItemByCommodity(commodityId);
 		
 		return processResults(objList);
 	}

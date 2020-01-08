@@ -4,14 +4,7 @@ public class Commodity {
 	
 	private String commodityId;
 	private String commodityName;
-	private String imageUrl;
 	
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 	public Commodity(String commodityId, String commodityName) {
 		super();
 		this.commodityId = commodityId;

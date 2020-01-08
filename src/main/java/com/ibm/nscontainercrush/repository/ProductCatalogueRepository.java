@@ -16,7 +16,8 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 	public static final String FIND_SEGMENTS = "SELECT distinct segment, segment_Name FROM XXIBM_PRODUCT_CATALOGUE";
 	public static final String FIND_FAMILIES_BY_SEGMENT = "select distinct family, family_name FROM XXIBM_PRODUCT_CATALOGUE where segment = :segment";
 	public static final String FIND_CLASS_BY_FAMILY = "select distinct CLASS, CLASS_NAME FROM XXIBM_PRODUCT_CATALOGUE where FAMILY = :family";
-	public static final String FIND_COMMODITIES_BY_CLASS = "select pst.item_number style_item_number, pst.description, pst.long_description, pst.catalogue_category, pst.brand,\r\n" + 
+	public static final String FIND_COMMODITIES_BY_CLASS = "select distinct COMMODITY, COMMODITY_NAME FROM XXIBM_PRODUCT_CATALOGUE where CLASS = :classId";
+	public static final String FIND_ITEMS_BY_COMMODITY = "select pst.item_number style_item_number, pst.description, pst.long_description, pst.catalogue_category, pst.brand,\r\n" + 
 			"	   psk.ITEM_NUMBER sku_item_number, psk.SKU_UNIT_OF_MEASURE, psk.SKU_ATTRIBUTE1, psk.SKU_ATTRIBUTE2," + 
 			"       psk.SKU_ATTRIBUTE_VALUE1, psk.SKU_ATTRIBUTE_VALUE2," + 
 			"       pp.PRICE_ID, pp.LIST_PRICE, pp.DISCOUNT, pp.IN_STOCK, pp.PRICE_EFFECTIVE_DATE" + 
@@ -24,7 +25,7 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 			"       WHERE pst.ITEM_NUMBER = psk.STYLE_ITEM" + 
 			"       AND psk.ITEM_NUMBER = pp.ITEM_NUMBER" + 
 			"       AND pst.CATALOGUE_CATEGORY = pc.COMMODITY " +
-			"       AND pc.CLASS = :classId";
+			"       AND pc.COMMODITY = :commodityId";
 
 	public static final String FIND_ITEMS_BY_TEXT = "select pst.item_number style_item_number, pst.description, pst.long_description, pst.catalogue_category, pst.brand,\r\n" + 
 			"	   psk.ITEM_NUMBER sku_item_number, psk.SKU_UNIT_OF_MEASURE, psk.SKU_ATTRIBUTE1, psk.SKU_ATTRIBUTE2," + 
@@ -58,6 +59,9 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 	
 	@Query(value = FIND_COMMODITIES_BY_CLASS, nativeQuery = true)
 	public List<Object[]> findCommoditiesByClass(@Param("classId") String classId);
+	
+	@Query(value = FIND_ITEMS_BY_COMMODITY, nativeQuery = true)
+	public List<Object[]> findItemByCommodity(@Param("commodityId") String commodityId);
 	
 	@Query(value = FIND_ITEMS_BY_TEXT, nativeQuery = true)
 	public List<Object[]> findItemsByText(@Param("text") String text);
