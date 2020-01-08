@@ -44,9 +44,9 @@ public class KoolAppController {
 		return service.findFamiliesBySegment(segmentId);
 	}
 	
-	@GetMapping("/findClassByFamily/{familyId}")
-	public List<ClassLevel> findClassByFamily(@PathVariable String familyId) {
-		return service.findClassByFamily(familyId);
+	@GetMapping("/findClassesByFamily/{familyId}")
+	public List<ClassLevel> findClassesByFamily(@PathVariable String familyId) {
+		return service.findClassesByFamily(familyId);
 	}
 	
 	

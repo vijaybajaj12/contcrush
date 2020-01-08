@@ -69,9 +69,9 @@ public class ProductCatalogueService {
 		return familyList;
 	}
 	
-	public List<ClassLevel> findClassByFamily(String family) {
+	public List<ClassLevel> findClassesByFamily(String family) {
 		List<ClassLevel> classList = null ;
-		List<Object[]> objList = repository.findClassByFamily(family);
+		List<Object[]> objList = repository.findClassesByFamily(family);
 		
 		if (objList !=null && !objList.isEmpty()) {
 			classList = new ArrayList<>();

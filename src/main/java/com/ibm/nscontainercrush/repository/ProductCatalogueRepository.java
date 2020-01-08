@@ -15,7 +15,7 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 	
 	public static final String FIND_SEGMENTS = "SELECT distinct segment, segment_Name FROM XXIBM_PRODUCT_CATALOGUE";
 	public static final String FIND_FAMILIES_BY_SEGMENT = "select distinct family, family_name FROM XXIBM_PRODUCT_CATALOGUE where segment = :segment";
-	public static final String FIND_CLASS_BY_FAMILY = "select distinct CLASS, CLASS_NAME FROM XXIBM_PRODUCT_CATALOGUE where FAMILY = :family";
+	public static final String FIND_CLASSES_BY_FAMILY = "select distinct CLASS, CLASS_NAME FROM XXIBM_PRODUCT_CATALOGUE where FAMILY = :family";
 	public static final String FIND_COMMODITIES_BY_CLASS = "select distinct COMMODITY, COMMODITY_NAME FROM XXIBM_PRODUCT_CATALOGUE where CLASS = :classId";
 	public static final String FIND_ITEMS_BY_COMMODITY = "select pst.item_number style_item_number, pst.description, pst.long_description, pst.catalogue_category, pst.brand,\r\n" + 
 			"	   psk.ITEM_NUMBER sku_item_number, psk.SKU_UNIT_OF_MEASURE, psk.SKU_ATTRIBUTE1, psk.SKU_ATTRIBUTE2," + 
@@ -54,8 +54,8 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 	@Query(value = FIND_FAMILIES_BY_SEGMENT, nativeQuery = true)
 	public List<Object[]> findFamiliesBySegment(@Param("segment") String segment);
 	
-	@Query(value = FIND_CLASS_BY_FAMILY, nativeQuery = true)
-	public List<Object[]> findClassByFamily(@Param("family") String family);
+	@Query(value = FIND_CLASSES_BY_FAMILY, nativeQuery = true)
+	public List<Object[]> findClassesByFamily(@Param("family") String family);
 	
 	@Query(value = FIND_COMMODITIES_BY_CLASS, nativeQuery = true)
 	public List<Object[]> findCommoditiesByClass(@Param("classId") String classId);
