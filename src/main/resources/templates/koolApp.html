@@ -23,12 +23,10 @@ hr {
   color: red;
 } 
 body{
-    background: #db5046;
+    background: #ede8e8;
 }
 
-body {
-background: #db5046;
-}
+
 
 h1{
 padding-top: 10px;
@@ -81,7 +79,7 @@ font-family: "Century Gothic";
     <div class="item active">
       <div class="jumbotron jumbotron-fluid">
        <div class="container" align="center">
-              <img src="images/Sales.jpg" height="130px" width="900px">
+              <img src="images/Sales.jpg" height="100px" width="900px">
        			
   			</div>
       </div>
@@ -89,18 +87,17 @@ font-family: "Century Gothic";
     <div class="item">
       <div class="jumbotron jumbotron-fluid">
        <div class="container" align="center">
-       			<img src="images/Discount.jpg" height="130px" width="900px">
+       			<img src="images/Discount.jpg" height="100px" width="900px">
   			</div>
       </div>
     </div>
     <div class="item">
       <div class="jumbotron jumbotron-fluid">
        <div class="container" align="center">
-       			<img src="images/XMAS.jpg" height="130px" width="900px">
+       			<img src="images/XMAS.jpg" height="100px" width="900px">
   			</div>
       </div>
    </div>
-  </div>
   <!-- Left and right controls -->
   <a class="left carousel-control" href="#myCarousel" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -111,48 +108,44 @@ font-family: "Century Gothic";
     <span class="sr-only">Next</span>
   </a>
 </div>
- <div class="container" ng-app="koolApp" ng-controller="koolCtrl">
- <div class="well well-lg" >
- <div class="form-inline">
-  	<div class="form-group">
-  						<label for="sel1">Select a segment:</label>
-    					<select name="ddlSegment" ng-model="Segments" ng-change="OnSegmentChange({{s.segmentId}})"  class="form-control"  style="width:250px">
-  		                	<option ng-repeat="s in Segments" value="{{s.segmentId}}">
-         		       			{{s.segmentName}}
-            				</option>
-        				</select>
-        				<label for="sel2">Select a family:</label>
-    					<select name="ddlFamily" ng-model="Family" ng-change="OnFamilyChange()"  class="form-control"  style="width:250px">
-  		        	        <option ng-repeat="f in Families" value="{{f.familyId}}">
-         		   		    {{f.familyName}}
-            				</option>
-   				   		</select>
-   				   		<label for="sel2">Select a Class:</label>
-    					<select name="ddlClass" ng-model="Classes"  ng-change="OnClassChange()" class="form-control"  style="width:250px">
-  		        	        <option ng-repeat="c in Classes" value="{{c.classId}}">
-         		   		    {{c.className}}
-            				</option>
-   				   		</select>		
-		        	</div>	
- <p></p>
- <hr bgcolor="red">
-    </div>
-			 <div class="row" >
-  				<div class="col-md-2" ng-repeat="c in comodity" >
-			    <div class="thumbnail" >
-			      <a href="/images/Shirt.jpeg">
-			        <img src="/images/Shirt.jpeg" alt="Lights" style="width:100%">
-			        <div class="caption">
-			          <p>Price: {{ c.listPrice }}</p>
-			          <p>{{ c.styleDescription }}</p>
-			          <p>{{ skuAttribute1 }}:{{ skuAttributeValue1 }}</p>
-			          <p>{{ skuAttribute2 }}:{{ skuAttributeValue2 }}</p>
-			        </div>
-			      </a>
-			    </div>
- 			 </div>
-		</div>
-	</div>
 </div>
-</body>
+ <div class="container-fluid" ng-app="koolApp" ng-controller="koolCtrl">
+  <div class="row">
+  <hr>
+    <div class="col-sm-4">
+     		    <label for="sel2" class="label label-info">Category:</label>
+  	      			<div ng-repeat="f in Families" style="background-color: lightblue;overflow -y:scroll;">
+  						<div class="custom-control custom-radio" >
+          				<input type="radio" class="custom-control-input" ng-model="$parent.SelectedFamilyId" id="rbfamily_{{f.familyId}}" value="{{f.familyId}}" ng-click=OnFamilyChange()   />
+          				<label class="custom-control-label" for="defaultUnchecked">{{f.familyName}}</label> 
+          			<br/>	
+						</div>
+					</div>
+				<br>
+				
+				<label for="sel2" ng-show="show" class="label label-info">Sub Category:</label>
+  	      			<div ng-repeat="c in Classes" style="background-color: lightblue;overflow -y:scroll;" >
+  						<div class="custom-control custom-radio" >
+          				<input type="radio" class="custom-control-input" ng-model="$parent.SelectedClassId" id="rbclass_{{c.classId}}" value="{{c.classId}}" ng-click=OnClassChange()   />
+          				<label class="custom-control-label" for="defaultUnchecked">{{c.className}}</label> 
+          			<br/>	
+						</div>
+					</div>
+						
+		</div>
+		
+	<div class="col-sm-8" >
+				<div class="col-md-2" ng-repeat="c in comodity">
+				    <div class="thumbnail" >
+			    		  <a href="koolAppProduct?Id={{c.commodityId}}" target="_blank">
+			        	   <img src="/images/Shirt.jpeg" alt="Lights" style="width:100%" class="img-rounded" >
+			        		<div class="caption">
+			            	<p>{{c.commodityName}}</p>
+			      		  </div>
+			      		</a>
+			    	</div>
+		    	</div>
+	</div>
+ </div>
+     </body>
 </html>
