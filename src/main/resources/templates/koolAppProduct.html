@@ -1,47 +1,44 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
 <head>
+<meta charset="ISO-8859-1">
+<title>Welcome to the Kool App</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<title>NS Container Team</title>
-
-<link rel="stylesheet"
-	th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/main.css}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+  <script src="/script/KoolAppProductList.js" type="text/javascript"></script>
 </head>
-
-<body bgcolor="lightblue">
-
-	<main role="main" class="container">
-	<div class="starter-template">
-		<h1>Welcome to our first Cloud Based App</h1>
+<body>
+<div ng-app="koolAppProductApp" ng-controller="ProductListController" style="background-color:#ebe8dd;">  
+	<div class="container-fluid">
+		<div class="well well-sm">
+		<h1>Product List</h1>      
+    </div>
+	<div class="row">
+         <div class="col-sm-8" style="background-color:#ebe8dd;" ng-show="show">
+			<div class="col-md-4" ng-repeat="c in comodity" >
+				    <div class="thumbnail">
+			    		  <a href="#">
+			        	   <img src="{{c.imageRetrievalUrl}}" style="width:100%; " >
+			        		<div class="caption">
+			            	<p>{{c.skuAttribute1}}: {{c.skuAttributeValue1}}</p>
+			            	<p>{{c.skuAttribute2}}: {{c.skuAttributeValue2}}</p>
+			      		    </div>
+			      		</a>
+			    	 </div>
+		    	</div>
+	       </div>       
 	</div>
-<!-- 	<div class="starter-template"> -->
-<!-- 		<h1>Welcome to our first Cloud Based App</h1> -->
-		<!-- 		<h2> -->
-		<!-- 			<span th:text="'Hello, ' + ${message}"></span> -->
-		<!-- 		</h2> -->
-<!-- 	</div> -->
-
-	<marquee width="60%" direction="right" height="100px">
-		<center>
-			<img src="/images/cloud.jpg" />
-		</center>
-	</marquee>
-	<a href="launchKoolApp">Search Kool app</a>
-	<h3>-------NS Container Crush Team--------</h3>
-	<ol>
-		<li th:each="task : ${tasks}" th:text="${task}" style="color:blue"></li>
-	</ol>
-
-
-
-	</main>
-	<!-- /.container -->
-
-	<script type="text/javascript"
-		th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
-</body>
+		  
+	<div class="jumbotron" ng-show="hide" >
+    <h1 >Ooops !!! No Product available.</h1>      
+    <h2>Products are coming soon.</h2>
+    </div>
+		  
+    </div>
+  </div>
+     </body>
 </html>
