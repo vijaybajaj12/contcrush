@@ -42,17 +42,17 @@ public class VisualToTextService {
      result = visualRecognition.classify(classifyOptions).execute().getResult();
      System.out.println(result);
     */
-    	File file = new File("src/main/resources/visual_recognition/v4/fruitbowl.jpg");
+    	//File file = new File("src/main/resources/visual_recognition/v4/fruitbowl.jpg");
     	  //init array with file length
     	  //byte[] bytesArray = new byte[(int) file.length()]; 
-    	  byte[] array = Files.readAllBytes(Paths.get("src/main/resources/visual_recognition/v4/fruitbowl.jpg"));
+    	  //byte[] array = Files.readAllBytes(Paths.get("src/main/resources/visual_recognition/v4/fruitbowl.jpg"));
     	 // FileInputStream fis = new FileInputStream(file);
     	 // fis.read(bytesArray); //read file into bytes[]
     	 // fis.close();
     				
     	 // return bytesArray;
       //imagesStream = new FileInputStream("src/main/resources/visual_recognition/v4/fruitbowl.jpg");
-    	InputStream imagesStream = new ByteArrayInputStream(array);
+    	InputStream imagesStream = new ByteArrayInputStream(bytes);
     	//InputStream imagesStream = new FileInputStream("src/main/resources/visual_recognition/v4/fruitbowl.jpg");
         ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
        .imagesFile(imagesStream)
@@ -73,10 +73,7 @@ public class VisualToTextService {
     	  // Base class for all exceptions caused by error responses from the service
     	  System.out.println("Error: Service returned status code "
     	    + e.getStatusCode() + ": " + e.getMessage());
-    	} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	}
 
     System.out.println(
         "\n******** Classify with the General model ********\n" + result
