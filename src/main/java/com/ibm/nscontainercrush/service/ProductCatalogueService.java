@@ -201,6 +201,30 @@ public class ProductCatalogueService {
 	}
 	
 	/**
+	 * This method will be used to find the sku item list based on brand
+	 * @param brand
+	 * @param discount
+	 * @return List<SkuItem>
+	 */
+	public List<SkuItem> findItemsByBrand(String brand) {
+		
+		if (!StringUtils.isEmpty(brand)) {
+			String brandStr = brand.toUpperCase();
+			List<Object[]> objList = productCatalogueRepository.findItemsByBrand(brandStr);
+			if (logger.isInfoEnabled()) {
+				if (objList != null) {
+					logger.info("No of Items retrieved from DB: " + objList.size());
+				}
+			}
+			return processResults(objList);
+		} 
+		
+		return null;
+		
+	}
+
+	
+	/**
 	 * This method will be used to find the sku item list based on brand and discount
 	 * @param brand
 	 * @param discount

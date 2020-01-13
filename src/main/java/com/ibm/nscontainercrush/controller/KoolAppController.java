@@ -76,6 +76,11 @@ public class KoolAppController {
 		return result;
 	}
 	
+	@GetMapping("/findItemsByBrand/{brand}")
+	public List<SkuItem> findItemsByBrand(@PathVariable String brand) {
+		return service.findItemsByBrand(brand);
+	}
+	
 	@GetMapping("/findItemsByBrandAndDiscount/{brand}/{discount}")
 	public List<SkuItem> findItemsByBrandAndDiscount(@PathVariable String brand, @PathVariable float discount) {
 		return service.findItemsByBrandAndDiscount(brand, discount);
