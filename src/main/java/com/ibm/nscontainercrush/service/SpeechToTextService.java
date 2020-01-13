@@ -3,6 +3,7 @@ package com.ibm.nscontainercrush.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -11,13 +12,17 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.nscontainercrush.config.SpeechToTextConfiguration;
+import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionAlternative;
@@ -29,33 +34,34 @@ import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
 @Service
 public class SpeechToTextService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(SpeechToTextService.class);
+	
 	@Autowired
 	private SpeechToTextConfiguration sttConfig;
 	
 	private SpeechRecognitionResults srResults;
 	
-	public List<String> convertSpeechToText() {
+	public List<String> convertSpeechToText() throws Exception {
 		
 		try {
 			invokeWatsonSpeechToTextProcess();
-			return extractWordsFromWatsonResult(srResults);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			List<String> extractedWords = extractWordsFromWatsonResult(srResults);
+			return getFilteredWords(extractedWords);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Error occurred while processing speech to text : " + e.getMessage());
+			throw new Exception("Error occurred while processing speech to text : " + e.getMessage());
 		}
-		
-		return null;
 	}
 		
-	public void invokeWatsonSpeechToTextProcess() throws InterruptedException, LineUnavailableException {
+	/**
+	 * This method is used to invoke watson speech to text service and capture the results
+	 * @throws InterruptedException
+	 * @throws LineUnavailableException
+	 */
+	private void invokeWatsonSpeechToTextProcess() throws InterruptedException, LineUnavailableException {
 		Authenticator authenticator = new IamAuthenticator(sttConfig.getAuthenticatorKey());
 		SpeechToText service = new SpeechToText(authenticator);
+		String[] keywordsArray = {"shirt", "trouser", "Coat", "Skirt","Blouse"};
 
 		// Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
 		int sampleRate = sttConfig.getSampleRate();
@@ -75,43 +81,45 @@ public class SpeechToTextService {
 		RecognizeOptions options = new RecognizeOptions.Builder()
 				.model(sttConfig.getModel())
 				.audio(audio)
-				.keywords(Arrays.asList("shirt", "trouser", "Coat", "Skirt","Blouse"))
+				.keywords(Arrays.asList(keywordsArray))
 				.keywordsThreshold((float) 0.6)
 				.maxAlternatives(3)
 				.interimResults(false)
 				.timestamps(true)
 				.wordConfidence(true)
-				// .inactivityTimeout(5) // use this to stop listening when the speaker pauses,
-				// i.e. for 5s
 				.contentType(HttpMediaType.AUDIO_RAW + ";rate=" + sampleRate).build();
 
 		service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
 			@Override
-			public void onTranscription(SpeechRecognitionResults speechResults) {
-				// TODO -need to capture speechResults
-				
+			public void onTranscription(SpeechRecognitionResults speechResults) {			
 				storeResults (speechResults);
-				//srResults=speechResults;
-				System.out.println(speechResults);
+				if (logger.isInfoEnabled()) {
+					logger.info("Results retrieved from watson speech to text service : " + speechResults);
+				}
 			}
 			
 			@Override
 			public void onTranscriptionComplete() {
-				System.out.println("onTranscriptionComplete");
 			}
 			
 		});
 
-		System.out.println("Listening to your voice for the next 5s...");
-		Thread.sleep(5 * 1000);
+		if (logger.isInfoEnabled()) {
+			logger.info("Listening to your voice for the next 5s...");
+		}
+		// Adding a sleep time to capture the voice from user
+		Thread.sleep(5 * 1000); 
 
-		// closing the WebSockets underlying InputStream will close the WebSocket
-		// itself.
+		// closing the WebSockets underlying InputStream will close the WebSocket itself.
 		line.stop();
 		line.close();
 		
-		Thread.sleep(5 * 1000); // to ensure that we get the SpeechRecognitionResults
-		System.out.println("Fin.");
+		// Adding a sleep time to ensure that we get the SpeechRecognitionResults before proceeding to next method
+		Thread.sleep(5 * 1000); 
+
+		if (logger.isInfoEnabled()) {
+			logger.info("Finished");
+		}
 	}
 	
 	private void storeResults(SpeechRecognitionResults speechResults) {
@@ -153,6 +161,32 @@ public class SpeechToTextService {
 
 		srResults = null;
 		return extractedWordList;
+	}
+	
+	private List<String> getFilteredWords(List<String> wordsExtracted) {
+		List<String> filteredWordList = null;
+		List<String> definedKeywordList = null;
+		if (wordsExtracted != null && !wordsExtracted.isEmpty()) {
+			filteredWordList = new ArrayList<>();
+			if (!StringUtils.isEmptyOrWhitespace(sttConfig.getDefinedKeywords())) {
+				String definedKeywords = sttConfig.getDefinedKeywords();
+				String delimiter = ContainerCrushConstant.PIPE;
+				definedKeywordList = new ArrayList<>();
+
+				StringTokenizer st = new StringTokenizer(definedKeywords, delimiter);
+				while (st.hasMoreElements()) {
+					definedKeywordList.add((String) st.nextElement());
+				}
+			}
+
+			for (String word : wordsExtracted) {
+				if (definedKeywordList.contains(word)) {
+					filteredWordList.add(word);
+				}
+			}
+		}
+
+		return filteredWordList;
 	}
 }
 

@@ -18,7 +18,12 @@ public class SpeechToTextController {
 	
 	@GetMapping("/convertSpeechToText")
 	public List<String> convertSpeechToText(){
-		return sttService.convertSpeechToText();
+		try {
+			return sttService.convertSpeechToText();
+		} catch (Exception e) {
+			return null;
+		}
+		
 	}
 
 }

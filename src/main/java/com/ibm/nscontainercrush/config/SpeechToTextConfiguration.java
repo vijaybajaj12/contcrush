@@ -11,6 +11,7 @@ public class SpeechToTextConfiguration {
 	private float baseConfidence;
 	private int sampleRate;
 	private String model;
+	private String definedKeywords;
 	
 	public String getAuthenticatorKey() {
 		return authenticatorKey;
@@ -35,6 +36,12 @@ public class SpeechToTextConfiguration {
 	}
 	public void setModel(String model) {
 		this.model = model;
+	}
+	public String getDefinedKeywords() {
+		return definedKeywords;
+	}
+	public void setDefinedKeywords(String definedKeywords) {
+		this.definedKeywords = definedKeywords;
 	}
 
 }

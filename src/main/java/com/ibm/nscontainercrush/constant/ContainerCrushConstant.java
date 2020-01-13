@@ -8,6 +8,7 @@ public class ContainerCrushConstant {
 	public static final String AND_OPERATOR = " AND ";
 	public static final String LEFT_BRACE = "(";
 	public static final String RIGHT_BRACE = ")";
+	public static final String PIPE = "|";
 	
 	//Constants related to image retrieval from cloud object storage
 	public static final String JPG_EXTENSION = ".jpg";
