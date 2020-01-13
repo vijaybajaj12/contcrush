@@ -51,11 +51,11 @@
 			<artifactId>ibm-watson</artifactId>
 			<version>[8,9)</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-entitymanager</artifactId> -->
-<!-- 			<version>4.3.8.Final</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.8.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>com.ibm.watson</groupId>
 			<artifactId>speech-to-text</artifactId>
