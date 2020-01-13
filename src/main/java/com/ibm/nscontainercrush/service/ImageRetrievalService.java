@@ -11,6 +11,8 @@ import java.util.Formatter;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +21,12 @@ import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
 
 @Service
 public class ImageRetrievalService {
+
+	private static final Logger logger = LoggerFactory.getLogger(ImageRetrievalService.class);
 	
 	@Autowired
 	private CloudObjectStorageConfiguration cosConfig;
-
-    //private static final String requestParameters = "";
-    
+	
 	public String contructImageRetrievalUrl(String objectKey) {
 
 		String endpoint = ContainerCrushConstant.HTTPS + cosConfig.getHost();
@@ -44,7 +46,7 @@ public class ImageRetrievalService {
 
 			String standardizedResource = "/" + cosConfig.getBucket() + "/" + objectKey;
 
-			String payloadHash = "UNSIGNED-PAYLOAD";
+			String payloadHash = ContainerCrushConstant.UNSIGNED_PAYLOAD;
 			String standardizedHeaders = "host:" + cosConfig.getHost();
 			String signedHeaders = "host";
 
@@ -53,7 +55,7 @@ public class ImageRetrievalService {
 					+ payloadHash;
 
 			// assemble string-to-sign
-			String hashingAlgorithm = "AWS4-HMAC-SHA256";
+			String hashingAlgorithm = ContainerCrushConstant.AWS4_HMAC_SHA256;
 			String credentialScope = datestamp + "/" + region + "/" + "s3" + "/" + "aws4_request";
 			String sts = hashingAlgorithm + "\n" + timestamp + "\n" + credentialScope + "\n"
 					+ hashHex(standardizedRequest);
