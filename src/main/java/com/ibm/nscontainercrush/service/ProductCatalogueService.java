@@ -1,10 +1,10 @@
 package com.ibm.nscontainercrush.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -15,12 +15,13 @@ import com.ibm.nscontainercrush.dto.Commodity;
 import com.ibm.nscontainercrush.dto.Family;
 import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
 import com.ibm.nscontainercrush.dto.SkuItem;
-import com.ibm.nscontainercrush.entity.ProductCatalogue;
 import com.ibm.nscontainercrush.repository.ProductCatalogueRepository;
 import com.ibm.nscontainercrush.repository.ProductItemRepositoryImpl;
 
 @Service
 public class ProductCatalogueService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductCatalogueService.class);
 	
 	@Autowired 
 	private ProductCatalogueRepository productCatalogueRepository;
@@ -40,6 +41,9 @@ public class ProductCatalogueService {
 		List<Object[]> objList = productCatalogueRepository.findSegments();
 		
 		if (objList !=null && !objList.isEmpty()) {
+			if (logger.isInfoEnabled()) {
+				logger.info("No of segments retrieved from DB: " + objList.size());
+			}
 			productCatalogueDtoList = new ArrayList<>();
 			ProductCatalogueDto prodCatDto;
 			for (Object[] obj:objList) {
@@ -64,6 +68,10 @@ public class ProductCatalogueService {
 		List<Object[]> objList = productCatalogueRepository.findFamiliesBySegment(segment);
 		
 		if (objList !=null && !objList.isEmpty()) {
+			if (logger.isInfoEnabled()) {
+				logger.info("No of families retrieved from DB: " + objList.size());
+			}
+			
 			familyList = new ArrayList<>();
 			Family family;
 			for (Object[] obj:objList) {
@@ -88,6 +96,9 @@ public class ProductCatalogueService {
 		List<Object[]> objList = productCatalogueRepository.findClassesByFamily(family);
 		
 		if (objList !=null && !objList.isEmpty()) {
+			if (logger.isInfoEnabled()) {
+				logger.info("No of classes retrieved from DB: ", objList.size());
+			}
 			classList = new ArrayList<>();
 			ClassLevel classLvl;
 			for (Object[] obj:objList) {
@@ -112,6 +123,9 @@ public class ProductCatalogueService {
 		List<Object[]> objList = productCatalogueRepository.findCommoditiesByClass(classId);
 		
 		if (objList !=null && !objList.isEmpty()) {
+			if (logger.isInfoEnabled()) {
+				logger.info("No of commodities retrieved from DB: " + objList.size());
+			}
 			commodityList = new ArrayList<>();
 			Commodity commodity;
 			for (Object[] obj:objList) {
@@ -133,6 +147,11 @@ public class ProductCatalogueService {
 	 */
 	public List<SkuItem> findItemsByCommodity(String commodityId) {
 		List<Object[]> objList = productCatalogueRepository.findItemByCommodity(commodityId);
+		if (logger.isInfoEnabled()) {
+			if (objList != null) {
+				logger.info("No of Items retrieved from DB: " + objList.size());
+			}
+		}
 		
 		return processResults(objList);
 	}
@@ -148,6 +167,11 @@ public class ProductCatalogueService {
 		List<Object[]> objList = null;
 		if (strList != null) {
 			objList = productItemRepository.getProductItemsByTextArray(strList);
+			if (logger.isInfoEnabled()) {
+				if (objList != null) {
+					logger.info("No of Items retrieved from DB: " + objList.size());
+				}
+			}
 		}
 		
 		return processResults(objList);
@@ -163,6 +187,11 @@ public class ProductCatalogueService {
 		List<Object[]> objList = null;
 		if (!StringUtils.isEmpty(textStr)) {
 			objList = productCatalogueRepository.findItemsByText(textStr.toUpperCase());
+			if (logger.isInfoEnabled()) {
+				if (objList != null) {
+					logger.info("No of Items retrieved from DB: " + objList.size());
+				}
+			}
 		}
 		
 		return processResults(objList);
@@ -179,6 +208,11 @@ public class ProductCatalogueService {
 		if (!StringUtils.isEmpty(brand)) {
 			String brandStr = brand.toUpperCase();
 			List<Object[]> objList = productCatalogueRepository.findItemsByBrandAndDiscount(brandStr, discount);
+			if (logger.isInfoEnabled()) {
+				if (objList != null) {
+					logger.info("No of Items retrieved from DB: " + objList.size());
+				}
+			}
 			return processResults(objList);
 		} 
 		

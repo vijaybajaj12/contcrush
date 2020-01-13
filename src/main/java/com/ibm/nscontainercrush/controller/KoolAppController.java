@@ -2,6 +2,8 @@ package com.ibm.nscontainercrush.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,27 +17,21 @@ import com.ibm.nscontainercrush.dto.Commodity;
 import com.ibm.nscontainercrush.dto.Family;
 import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
 import com.ibm.nscontainercrush.dto.SkuItem;
+import com.ibm.nscontainercrush.dto.SkuItemResult;
 import com.ibm.nscontainercrush.service.ProductCatalogueService;
 
 @RestController
 @RequestMapping(value = "/koolApp")
 public class KoolAppController {
 	
-	@Autowired
-	ProductCatalogueService service;
-
-//	@GetMapping("/findProductCatalogues")
-//	public List<ProductCatalogueDto> findProductCatalogues() {
-//		return service.findProductCatalogues();
-//	}
+	private static final Logger logger = LoggerFactory.getLogger(KoolAppController.class);
 	
-//	@GetMapping("/findProductCatalogues")
-//	public List<ProductCatalogue> findProductCatalogues() {
-//		return service.findProductCatalogues();
-//	}
+	@Autowired
+	private ProductCatalogueService service;
 	
 	@GetMapping("/findSegments")
 	public List<ProductCatalogueDto> findSegments() {
+		logger.info("findSegments() called");
 		return service.findSegments();
 	}
 	
@@ -48,7 +44,6 @@ public class KoolAppController {
 	public List<ClassLevel> findClassesByFamily(@PathVariable String familyId) {
 		return service.findClassesByFamily(familyId);
 	}
-	
 	
 	@GetMapping("/findCommoditiesByClass/{classId}")
 	public List<Commodity> findCommoditiesByClass(@PathVariable String classId) {
@@ -68,6 +63,17 @@ public class KoolAppController {
 	@PostMapping("/findItemsByTextArray")
 	public List<SkuItem> findItemsByTextArray(@RequestBody List<String> text) {
 		return service.findItemsByTextArray(text);
+	}
+	
+	@PostMapping("/findItemsByStringArray")
+	public SkuItemResult findItemsByStringArray(@RequestBody List<String> text) {
+		SkuItemResult result = null;
+		List<SkuItem> skuItemList = service.findItemsByTextArray(text);
+		if (skuItemList != null && !skuItemList.isEmpty()) {
+			result = new SkuItemResult();
+			result.setSkuItemList(skuItemList);
+		}
+		return result;
 	}
 	
 	@GetMapping("/findItemsByBrandAndDiscount/{brand}/{discount}")
