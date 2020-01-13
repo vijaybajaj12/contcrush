@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.service.SpeechToTextService;
 
 @RestController
@@ -17,9 +18,10 @@ public class SpeechToTextController {
 	private SpeechToTextService sttService;
 	
 	@GetMapping("/convertSpeechToText")
-	public List<String> convertSpeechToText(){
+	public List<SkuItem> convertSpeechToText(){
 		try {
-			return sttService.convertSpeechToText();
+			//return sttService.convertSpeechToText();
+			return sttService.retrieveItemsUsingSpeechToTextConversion();
 		} catch (Exception e) {
 			return null;
 		}

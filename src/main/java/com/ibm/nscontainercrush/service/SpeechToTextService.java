@@ -23,6 +23,8 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.nscontainercrush.config.SpeechToTextConfiguration;
 import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
+import com.ibm.nscontainercrush.dto.SkuItem;
+import com.ibm.nscontainercrush.util.ContainerCrushUtil;
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionAlternative;
@@ -41,12 +43,22 @@ public class SpeechToTextService {
 	
 	private SpeechRecognitionResults srResults;
 	
+	@Autowired
+	private ProductCatalogueService productCatalogueService;
+	
+	public List<SkuItem> retrieveItemsUsingSpeechToTextConversion () throws Exception {
+		List<String> extractedWords = convertSpeechToText();
+		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords);
+		
+		return productCatalogueService.findItemsByTextArray(finalWordList);
+	}
+	
 	public List<String> convertSpeechToText() throws Exception {
 		
 		try {
 			invokeWatsonSpeechToTextProcess();
 			List<String> extractedWords = extractWordsFromWatsonResult(srResults);
-			return getFilteredWords(extractedWords);
+			return extractedWords;
 		} catch (Exception e) {
 			logger.error("Error occurred while processing speech to text : " + e.getMessage());
 			throw new Exception("Error occurred while processing speech to text : " + e.getMessage());
@@ -163,30 +175,5 @@ public class SpeechToTextService {
 		return extractedWordList;
 	}
 	
-	private List<String> getFilteredWords(List<String> wordsExtracted) {
-		List<String> filteredWordList = null;
-		List<String> definedKeywordList = null;
-		if (wordsExtracted != null && !wordsExtracted.isEmpty()) {
-			filteredWordList = new ArrayList<>();
-			if (!StringUtils.isEmptyOrWhitespace(sttConfig.getDefinedKeywords())) {
-				String definedKeywords = sttConfig.getDefinedKeywords();
-				String delimiter = ContainerCrushConstant.PIPE;
-				definedKeywordList = new ArrayList<>();
-
-				StringTokenizer st = new StringTokenizer(definedKeywords, delimiter);
-				while (st.hasMoreElements()) {
-					definedKeywordList.add((String) st.nextElement());
-				}
-			}
-
-			for (String word : wordsExtracted) {
-				if (definedKeywordList.contains(word)) {
-					filteredWordList.add(word);
-				}
-			}
-		}
-
-		return filteredWordList;
-	}
 }
 
