@@ -4,6 +4,7 @@ public class Commodity {
 	
 	private String commodityId;
 	private String commodityName;
+	private String imageUrl;
 	
 	public Commodity(String commodityId, String commodityName) {
 		super();
@@ -21,6 +22,12 @@ public class Commodity {
 	}
 	public void setCommodityName(String commodityName) {
 		this.commodityName = commodityName;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 }

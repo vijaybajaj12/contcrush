@@ -135,6 +135,8 @@ public class ProductCatalogueService {
 					commodityName = commodityName.substring(0,15);
 				}
 				commodity = new Commodity(commodityId, commodityName);
+				commodity.setImageUrl(imageRetrievalService.contructImageRetrievalUrl(commodityId
+						+ ContainerCrushConstant.JPG_EXTENSION)); // set image retrieval url
 				commodityList.add(commodity);
 				commodity = null; 
 			}
@@ -307,12 +309,12 @@ public class ProductCatalogueService {
 				if (obj[14] != null) {
 					skuItem.setInStock((String)obj[14]);
 				}
-				if (obj[15] != null) {
-					java.sql.Date sqlDate = (java.sql.Date) obj[15];
-					if (sqlDate != null) {
-						skuItem.setPriceEffectiveDate(new java.util.Date(sqlDate.getTime()));
-					}
-				}
+//				if (obj[15] != null) {
+//					java.sql.Date sqlDate = (java.sql.Date) obj[15];
+//					if (sqlDate != null) {
+//						skuItem.setPriceEffectiveDate(new java.util.Date(sqlDate.getTime()));
+//					}
+//				}
 				processedList.add(skuItem);
 				skuItem = null;
 			}
