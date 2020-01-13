@@ -23,7 +23,7 @@ import com.ibm.nscontainercrush.repository.ProductItemRepositoryImpl;
 public class ProductCatalogueService {
 	
 	@Autowired 
-	private ProductCatalogueRepository repository;
+	private ProductCatalogueRepository productCatalogueRepository;
 	
 	@Autowired
 	private ProductItemRepositoryImpl productItemRepository;
@@ -31,9 +31,13 @@ public class ProductCatalogueService {
 	@Autowired
 	private ImageRetrievalService imageRetrievalService;
 	
+	/**
+	 * This method is used to retrieve all the segments from Product Catalogue
+	 * @return List<ProductCatalogueDto>
+	 */
 	public List<ProductCatalogueDto> findSegments() {
 		List<ProductCatalogueDto> productCatalogueDtoList = null ;
-		List<Object[]> objList = repository.findSegments();
+		List<Object[]> objList = productCatalogueRepository.findSegments();
 		
 		if (objList !=null && !objList.isEmpty()) {
 			productCatalogueDtoList = new ArrayList<>();
@@ -50,9 +54,14 @@ public class ProductCatalogueService {
 		return productCatalogueDtoList;
 	}
 	
+	/**
+	 * This method is used to retrieve all family values based on a given segment id
+	 * @param segment
+	 * @return List<Family>
+	 */
 	public List<Family> findFamiliesBySegment(String segment) {
 		List<Family> familyList = null ;
-		List<Object[]> objList = repository.findFamiliesBySegment(segment);
+		List<Object[]> objList = productCatalogueRepository.findFamiliesBySegment(segment);
 		
 		if (objList !=null && !objList.isEmpty()) {
 			familyList = new ArrayList<>();
@@ -62,16 +71,21 @@ public class ProductCatalogueService {
 				String familyName = (String) obj[1];
 				family = new Family(familyId, familyName);
 				familyList.add(family);
-				family = null; // will be sent for garbage collection
+				family = null; 
 			}
 		}
 		
 		return familyList;
 	}
 	
+	/**
+	 * This method is used to retrieve all classes from Product Catalogue using family id
+	 * @param family
+	 * @return List<ClassLevel>
+	 */
 	public List<ClassLevel> findClassesByFamily(String family) {
 		List<ClassLevel> classList = null ;
-		List<Object[]> objList = repository.findClassesByFamily(family);
+		List<Object[]> objList = productCatalogueRepository.findClassesByFamily(family);
 		
 		if (objList !=null && !objList.isEmpty()) {
 			classList = new ArrayList<>();
@@ -81,16 +95,21 @@ public class ProductCatalogueService {
 				String className = (String) obj[1];
 				classLvl = new ClassLevel(classId, className);
 				classList.add(classLvl);
-				classLvl = null; // will be sent for garbage collection
+				classLvl = null; 
 			}
 		}
 		
 		return classList;
 	}
 	
+	/**
+	 * This method is used to return all commodities from Product Catalogue based on class id
+	 * @param classId
+	 * @return List<Commodity>
+	 */
 	public List<Commodity> findCommoditiesByClass(String classId) {
 		List<Commodity> commodityList = null ;
-		List<Object[]> objList = repository.findCommoditiesByClass(classId);
+		List<Object[]> objList = productCatalogueRepository.findCommoditiesByClass(classId);
 		
 		if (objList !=null && !objList.isEmpty()) {
 			commodityList = new ArrayList<>();
@@ -100,15 +119,20 @@ public class ProductCatalogueService {
 				String commodityName = (String) obj[1];
 				commodity = new Commodity(commodityId, commodityName);
 				commodityList.add(commodity);
-				commodity = null; // will be sent for garbage collection
+				commodity = null; 
 			}
 		}
 		
 		return commodityList;
 	}
 	
+	/**
+	 * This method is used to find the Sku Items with all details using commodity id
+	 * @param commodityId
+	 * @return List<SkuItem>
+	 */
 	public List<SkuItem> findItemsByCommodity(String commodityId) {
-		List<Object[]> objList = repository.findItemByCommodity(commodityId);
+		List<Object[]> objList = productCatalogueRepository.findItemByCommodity(commodityId);
 		
 		return processResults(objList);
 	}
@@ -117,7 +141,7 @@ public class ProductCatalogueService {
 	 * This method will be used to find the sku item list based on strList with possible
 	 * matching values
 	 * @param strList
-	 * @return
+	 * @return List<SkuItem>
 	 */
 	public List<SkuItem> findItemsByTextArray(List<String> strList) {
 		
@@ -129,11 +153,16 @@ public class ProductCatalogueService {
 		return processResults(objList);
 	}
 	
+	/**
+	 * This method is used to retrieve the list of SkuItem based on a given text which will used for searching
+	 * @param textStr
+	 * @return List<SkuItem
+	 */
 	public List<SkuItem> findItemsByText(String textStr) {
 		
 		List<Object[]> objList = null;
 		if (!StringUtils.isEmpty(textStr)) {
-			objList = repository.findItemsByText(textStr.toUpperCase());
+			objList = productCatalogueRepository.findItemsByText(textStr.toUpperCase());
 		}
 		
 		return processResults(objList);
@@ -143,13 +172,13 @@ public class ProductCatalogueService {
 	 * This method will be used to find the sku item list based on brand and discount
 	 * @param brand
 	 * @param discount
-	 * @return
+	 * @return List<SkuItem>
 	 */
 	public List<SkuItem> findItemsByBrandAndDiscount(String brand, float discount) {
 		
 		if (!StringUtils.isEmpty(brand)) {
 			String brandStr = brand.toUpperCase();
-			List<Object[]> objList = repository.findItemsByBrandAndDiscount(brandStr, discount);
+			List<Object[]> objList = productCatalogueRepository.findItemsByBrandAndDiscount(brandStr, discount);
 			return processResults(objList);
 		} 
 		
@@ -157,6 +186,11 @@ public class ProductCatalogueService {
 		
 	}
 	
+	/**
+	 * This method will be used to process the result sets from DB and convert into List of SkuItem
+	 * @param resultList
+	 * @return List<SkuItem>
+	 */
 	private List<SkuItem> processResults (List<Object[]> resultList) {
 		
 		List<SkuItem> processedList = null;
@@ -223,95 +257,6 @@ public class ProductCatalogueService {
 			}
 		}
 		return processedList;
-	}
-	
-	// TODO To be removed
-	public List<ProductCatalogueDto> findProductCatalogues() {
-		
-		return processProductCatalogueResults(repository.findAll());
-		
-		//return repository.findAll();
-	}
-	
-	
-	
-//	public List<ProductCatalogueDto> findProductCatalogues() {
-//		
-//		return buildTree(repository.findAll());
-//
-//	}
-	
-	// TODO To be removed
-	private List<ProductCatalogueDto> processProductCatalogueResults(List<ProductCatalogue> productCatalogueList) {
-	
-		List<ProductCatalogueDto> productCatalogueDtoList = new ArrayList<>();
-		Map<String, List<Family>> catalogueMap = new HashMap<>();
-		if (productCatalogueList != null && !productCatalogueList.isEmpty()) {
-			for (ProductCatalogue prodCat:productCatalogueList) {
-				List<Family> familyList = null;
-				if (catalogueMap.containsKey(prodCat.getId().getSegment())) {
-					familyList = catalogueMap.get(prodCat.getId().getSegment());
-				} else {
-					familyList = new ArrayList<>();
-				}
-				familyList.add(new Family(prodCat.getId().getFamily(), prodCat.getFamilyName()));
-				List<Family> familyList1 = processFamilyElements(familyList, prodCat);
-				catalogueMap.put(prodCat.getId().getSegment(), familyList1);
-				//productCatalogueDtoList.add(new ProductCatalogueDto(prodCat.getId().getSegment(), prodCat.getFamilyName(), familyList1));
-			}
-		}
-		
-		return productCatalogueDtoList;
-	}
-	
-	// TODO To be removed
-	private List<Family> processFamilyElements(List<Family> familyList, ProductCatalogue prodCat) {
-		
-		Map<String, List<ClassLevel>> familyMap = new HashMap<>();
-		List<Family> familyList1 = new ArrayList<>();
-		if (familyList != null && !familyList.isEmpty()) {
-			for (Family family:familyList) {
-				List<ClassLevel> classList = null;
-				if (familyMap.containsKey(family.getFamilyId())) {
-					classList = familyMap.get(family.getFamilyId());
-				} else {
-					classList = new ArrayList<>();
-				}
-				classList.add(new ClassLevel(prodCat.getId().getClass1(), prodCat.getClassName()));
-				processClassElements(classList, prodCat);
-				familyMap.put(family.getFamilyId(), classList);
-				Family family1 = new Family(family.getFamilyId(), family.getFamilyName());
-				family1.setClassList(classList);
-				familyList1.add(family1);
-			}
-		}
-		
-		return familyList1;
-	}
-	
-	// TODO To be removed
-	private List<ClassLevel> processClassElements(List<ClassLevel> classList, ProductCatalogue prodCat) {
-		
-		Map<String, List<Commodity>> classMap = new HashMap<>();
-		List<ClassLevel> classList1 = new ArrayList<>();
-		if (classList != null && !classList.isEmpty()) {
-			for (ClassLevel classLevel:classList) {
-				List<Commodity> commodityList = null;
-				if (classMap.containsKey(classLevel.getClassId())) {
-					commodityList = classMap.get(classLevel.getClassId());
-				} else {
-					commodityList = new ArrayList<>();
-				}
-				commodityList.add(new Commodity(prodCat.getId().getCommodity(), prodCat.getCommodityName()));
-				classMap.put(classLevel.getClassId(), commodityList);
-				ClassLevel class1 = new ClassLevel(prodCat.getId().getCommodity(), prodCat.getCommodityName());
-				class1.setCommodityList(commodityList);
-				classList1.add(class1);
-				
-			}
-		}
-		
-		return classList1;
 	}
 
 }
