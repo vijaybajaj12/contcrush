@@ -131,6 +131,9 @@ public class ProductCatalogueService {
 			for (Object[] obj:objList) {
 				String commodityId = (String) obj[0];
 				String commodityName = (String) obj[1];
+				if (commodityName.length() > 16) {
+					commodityName = commodityName.substring(0,15);
+				}
 				commodity = new Commodity(commodityId, commodityName);
 				commodityList.add(commodity);
 				commodity = null; 
