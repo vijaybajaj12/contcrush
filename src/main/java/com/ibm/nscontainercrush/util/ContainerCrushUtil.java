@@ -24,8 +24,10 @@ public class ContainerCrushUtil {
 					definedKeywordList.add((String) st.nextElement());
 				}
 				for (String word : wordsExtracted) {
-					if (definedKeywordList.contains(word)) {
-						filteredWordList.add(word);
+					if (!StringUtils.isEmpty(word)) {
+						if (definedKeywordList.contains(word.toLowerCase())) {
+							filteredWordList.add(word);
+						}
 					}
 				}	
 			}

@@ -40,6 +40,12 @@ public class VisualToTextService {
 	@Autowired
 	private ProductCatalogueService productCatalogueService;
 	
+	/**
+	 * This method is used to retrieve items based on results retrieved from watson visual to text service
+	 * @param bytes
+	 * @return
+	 * @throws Exception
+	 */
 	public List<SkuItem> retrieveItemsUsingVisualToTextConversion (byte[] bytes) throws Exception {
 		List<String> extractedWords = convertVisualToText(bytes);
 		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords, env.getProperty("definedKeywords"));
@@ -68,7 +74,7 @@ public class VisualToTextService {
 			InputStream imagesStream = new ByteArrayInputStream(bytes);
 			ClassifyOptions classifyOptions = new ClassifyOptions.Builder().imagesFile(imagesStream)
 					.imagesFilename("fruitbowl.jpg").imagesFileContentType("image/jpg")
-					.classifierIds(Arrays.asList("food")).build();
+					.classifierIds(Arrays.asList("Genderdetection_714036171")).build();
 
 			result = visualRecognition.classify(classifyOptions).execute().getResult();
 
