@@ -32,8 +32,8 @@ public class VisualToTextController {
 			try {
 				bytes = file.getBytes();
 				return vttService.retrieveItemsUsingVisualToTextConversion(bytes);
-			} catch (IOException e) {
-				logger.error("Exception occurred while processing the results");
+			} catch (Exception e) {
+				logger.error("Exception occurred while processing visual to text conversion");
 			}
 		}
 	 return null;

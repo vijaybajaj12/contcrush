@@ -4,13 +4,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("stt")
-public class SpeechToTextConfiguration {
+@ConfigurationProperties("vtt")
+public class VisualToTextConfiguration {
 	
 	private String authenticatorKey;
 	private float baseConfidence;
-	private int sampleRate;
-	private String model;
+	private String versionDate;
+	private String serviceUrl;
 	
 	public String getAuthenticatorKey() {
 		return authenticatorKey;
@@ -24,16 +24,16 @@ public class SpeechToTextConfiguration {
 	public void setBaseConfidence(float baseConfidence) {
 		this.baseConfidence = baseConfidence;
 	}
-	public int getSampleRate() {
-		return sampleRate;
+	public String getVersionDate() {
+		return versionDate;
 	}
-	public void setSampleRate(int sampleRate) {
-		this.sampleRate = sampleRate;
+	public void setVersionDate(String versionDate) {
+		this.versionDate = versionDate;
 	}
-	public String getModel() {
-		return model;
+	public String getServiceUrl() {
+		return serviceUrl;
 	}
-	public void setModel(String model) {
-		this.model = model;
+	public void setServiceUrl(String serviceUrl) {
+		this.serviceUrl = serviceUrl;
 	}
 }
