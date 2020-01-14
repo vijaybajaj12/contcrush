@@ -1,13 +1,12 @@
 angular.module('koolApp', [])
-.controller('koolCtrl', function($scope, $http) {
-$scope.OnCategory = function() {
+.controller('koolCtrl', function($scope, $http,$window) {
 $scope.show=0;
 $http.get("/koolApp/findFamiliesBySegment/53000000").
             then(function (responses) {  
                 $scope.Families = responses.data;
                    
           });
-}
+
  $scope.OnFamilyChange = function(Families) {
         $http.get("/koolApp/findClassesByFamily/"+$scope.SelectedFamilyId).
             then(function (responses) {  
@@ -23,6 +22,11 @@ $http.get("/koolApp/findFamiliesBySegment/53000000").
           });   
          }  
       
-
+$scope.searchProduct = function (value) {
+       // alert(value);
+        var url = "/koolAppSearchProd?text="+value;
+         //$window.location.href = url;
+         $window.open(url, "blank");
+    };
       
 });
