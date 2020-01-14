@@ -22,7 +22,7 @@
                    color: #6A2E1B;
                    margin-left: 30px;
                    font-family: Verdana;
-                   font-size: 25px;
+                   font-size: 20px;
         }
          
         .navbar-custom .navbar-text { 
@@ -276,7 +276,7 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
 </script>
 </head>
 <body class = "example1">
-
+<div ng-app="koolApp" ng-controller="koolCtrl">
 <nav class="navbar navbar-custom navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -287,37 +287,37 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
       </button>
       <a class="navbar-brand" href="#"><b>Welcome To NS KOOL APP</b></a>
       </div>
-      <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="navbar-form navbar-left">
       <div class="input-group">
-        <input style="border: 2px solid #F86A3D" type="text" class="form-control" placeholder="Search" name="search" size=80>
+        <input style="border: 2px solid #F86A3D" id="txtSearch" type="text" class="form-control" placeholder="Search" name="search" size="50" ng-model="inputValue">
         <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
+          <button class="btn btn-default" type="submit" ng-click="searchProduct(inputValue)">
             <i class="glyphicon glyphicon-search"></i>
           </button>
         </div>
       </div>
-    </form>
-    <form class="navbar-form navbar-left" action="/action_page.php">
+    </div>
+    <div class="navbar-form navbar-left" action="/action_page.php">
     <div class="input-group">
     <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SPEAK YOUR CHOICES">
          <img src="/images/mic.jpg" width=18px height=18px style="align:center">
         </button>
         </div>
-       </form>
-       <form class="navbar-form navbar-left" action="/action_page.php">
+       </div>
+       <div class="navbar-form navbar-left" action="/action_page.php">
     <div class="input-group">
     <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SEE YOUR LOOK">
         <i class="glyphicon glyphicon-camera"></i>
         </button>
         </div>
-       </form>
-      <form class="navbar-form navbar-left" action="/getLocation">
+       </div>
+      <div class="navbar-form navbar-left" action="/getLocation">
      <div class="input-group">
     <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SEARCH YOUR LOCATION">
         <i class="glyphicon glyphicon-map-marker"></i>
         </button>
         </div>
-       </form>   
+       </div>   
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#myPage" data-toggle="tooltip" data-placement="bottom" title="HOME"><span class="glyphicon glyphicon-home"></span></a></li>                                    
@@ -350,7 +350,7 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
   	    <div class="item">
                <img src="/images/Banner T-shirts1-new.jpg" alt="New Year Sale" width=100% height=200px style="align:center">
                <div class="carousel-caption" style="width:200px; z-index:10; top: 40%; left: 20%; -webkit-transform:translate(0, -50%); -ms-transform:translate(0, -50%); transform:translate(0, -50%);">
-              <h3 class="zoom"><b> Flat 40% OFF ON T-SHIRTS </b></h3>
+              <h3 class="zoom"><b> <a href="/koolAppProdbyBrandDisc?Brand=MLANM">Flat 40% OFF ON T-SHIRTS</a> </b></h3>
            </div>
   		 </div>
   	   <div class="item">
@@ -390,15 +390,12 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
 
 <!-- end carousel-controls -->
 
-<div class="container-fluid" ng-app="koolApp" ng-controller="koolCtrl">
+<div class="container-fluid">
   <div class="row">
   <hr>
     <div class="col-sm-3">
-                <div class="custom-control custom-radio" >
-     		    <input type="checkbox" class="custom-control-input" ng-model="myVar" ng-click=OnCategory()>
-     		    <label for="defaultUnchecked" class="label label-info" style="background-color: blue; font-size:15px;">Category:</label>
-     		    </div>
-  	      			<div ng-show="myVar" ng-repeat="f in Families" style="background-color: lightblue;overflow -y:scroll;">
+     		    <label for="sel2" class="label label-info" style="background-color: blue; font-size:15px;">Category:</label>
+  	      			<div ng-repeat="f in Families" style="background-color: lightblue;overflow -y:scroll;">
   						<div class="custom-control custom-radio" >
           				<input type="radio" class="custom-control-input" ng-model="$parent.SelectedFamilyId" id="rbfamily_{{f.familyId}}" value="{{f.familyId}}" ng-click=OnFamilyChange()   />
           				<label class="custom-control-label" for="defaultUnchecked">{{f.familyName}}</label> 
@@ -408,7 +405,7 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
 				<br>
 				
 				<label for="sel2" ng-show="show" class="label label-info" style="background-color: blue; font-size:15px;">Sub Category:</label>
-  	      			<div ng-show="myVar" ng-repeat="c in Classes" style="background-color: lightblue;overflow -y:scroll;" >
+  	      			<div ng-repeat="c in Classes" style="background-color: lightblue;overflow -y:scroll;" >
   						<div class="custom-control custom-radio" >
           				<input type="radio" class="custom-control-input" ng-model="$parent.SelectedClassId" id="rbclass_{{c.classId}}" value="{{c.classId}}" ng-click=OnClassChange()   />
           				<label class="custom-control-label" for="defaultUnchecked">{{c.className}}</label> 
@@ -419,11 +416,11 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
 		</div>
 		
 	<div class="col-sm-7" >
-				<div class="col-md-3" ng-show="myVar" ng-repeat="c in comodity">
+				<div class="col-md-3" ng-show="show" ng-repeat="c in comodity">
 				    <div class="thumbnail" >
 			    		  <a href="koolAppProduct?Id={{c.commodityId}}" target="_blank">
-			        	   <img src="/images/Shirt.jpeg" alt="Lights" style=" border: 10px solid #A5C5D1; width:100%" class="img-rounded" >
-			        		<div class="caption" style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:20px; text-align:center">
+			        	   <img src="{{c.imageUrl}}" alt="Lights" style=" border: 10px solid #A5C5D1; width:100%" class="img-rounded">
+			        		<div class="caption" style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:20px; text-align:center"  height="150px">
 			            	<p>{{c.commodityName}}</p>
 			      		  </div>
 			      		</a>
@@ -432,8 +429,8 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
 	</div>
  </div>
  
- <div class="container-fluid" ng-app="koolApp" ng-hide="$parent.SelectedClassId" ng-show="$parent.SelectedFamilyId" ng-controller="koolCtrl" style="position:absolute; top:20px; left:40px;" >
- <div style="position:absolute; top:310px; left:500px; border: 1px solid #B10738; width:120px; height:15px; font-size:10px; font-family:Arial; background-color:#0C42F8; color:#DFE853"><b>Select By GENDER</b></div> 
+ 
+ <div class="container-fluid" ng-app="koolApp" ng-hide="$parent.SelectedClassId"  ng-controller="koolCtrl" style="position:absolute; top:20px; left:25px;"> 
  <div style="position:absolute; top:340px; left:500px; border: 10px solid #A5C5D1;">
   <figure>
   <img src="/images/Men-1.jpg" alt="Men" width=160px height=180px class="img-square" >
@@ -461,7 +458,6 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
   </figure>
  </div>
  
- <div style="position:absolute; top:600px; left:500px; border: 1px solid #B10738; width:120px; height:15px; font-size:10px; font-family:Arial; background-color:#0C42F8; color:#DFE853;"><b>Select By BRANDS</b></div>
  
  <div style="position:absolute; top:630px; left:500px; border: 10px solid #A5C5D1;">
  <figure>
@@ -492,8 +488,6 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
  </div>
  
  
- <div style="position:absolute; top:890px; left:500px; border: 1px solid #B10738; width:120px; height:15px; font-size:10px; font-family:Arial; background-color:#0C42F8; color:#DFE853;"><b>Select By PRODUCTS</b></div>
- 
  <div style="position:absolute; top:920px; left:500px; border: 10px solid #A5C5D1;">
  <figure>
   <img src="/images/T-shirts-new.jpg" alt="Men" width=160px height=180px class="img-square" >
@@ -522,7 +516,8 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
  </figure>
  </div>
  
+  </div>
  </div>
- 
+ </div>
 </body>
 </html>
