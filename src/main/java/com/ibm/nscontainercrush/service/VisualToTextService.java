@@ -2,6 +2,7 @@ package com.ibm.nscontainercrush.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +20,10 @@ import com.ibm.nscontainercrush.config.VisualToTextConfiguration;
 import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.util.ContainerCrushUtil;
 import com.ibm.watson.visual_recognition.v3.VisualRecognition;
+import com.ibm.watson.visual_recognition.v3.model.ClassResult;
+import com.ibm.watson.visual_recognition.v3.model.ClassifiedImage;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
+import com.ibm.watson.visual_recognition.v3.model.ClassifierResult;
 import com.ibm.watson.visual_recognition.v3.model.ClassifyOptions;
 
 @Service
@@ -82,7 +86,24 @@ public class VisualToTextService {
 	
 	private List<String> extractWordsFromWatsonResult(ClassifiedImages result) {
 		List<String> extractedWordList = null;
-		// TODO login to process result and populate extractedWordList
+		if (result != null && result.getImages() !=null && !result.getImages().isEmpty()) {
+			extractedWordList = new ArrayList<>();
+			for (ClassifiedImage clImage : result.getImages()) {
+				if (clImage != null && clImage.getClassifiers() != null && !clImage.getClassifiers().isEmpty()) {
+					for (ClassifierResult clrResult:clImage.getClassifiers()) {
+						if (clrResult.getClasses() != null && !clrResult.getClasses().isEmpty()) {
+							List<ClassResult> classResults = clrResult.getClasses();
+							//classResults.forEach(classResult -> extractedWordList.add(classResult.getXClass()));
+							for (ClassResult clResult : clrResult.getClasses()) {
+								if (clResult.getXClass() != null) {
+									extractedWordList.add(clResult.getXClass());
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 		return extractedWordList;
 	}
 
