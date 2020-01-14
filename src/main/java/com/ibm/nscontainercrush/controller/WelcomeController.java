@@ -32,4 +32,25 @@ public class WelcomeController {
           return new ModelAndView("koolApp"); //view
     }
     
+
+    @GetMapping("/koolAppProduct")
+    public ModelAndView launchkoolAppProduct(){
+          return new ModelAndView("koolAppProduct"); //view
+    }
+    
+    @GetMapping("/koolAppProdbyBrandDisc")
+    public ModelAndView launchkoolAppProductbyBrandDisc(){
+          return new ModelAndView("koolAppProdbyBrandDisc"); //view
+    }
+    
+    @GetMapping("/koolAppSearchProd")
+    public ModelAndView launchkoolkoolAppSearchProd(){
+          return new ModelAndView("koolAppSearchProd"); //view
+    }
+    
+    @GetMapping("/koolCamera")
+    public ModelAndView launchkoolCamera(){
+          return new ModelAndView("koolCamera"); //view
+    }
+
 }
