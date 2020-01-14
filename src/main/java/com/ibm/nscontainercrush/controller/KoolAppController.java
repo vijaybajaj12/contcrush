@@ -86,4 +86,9 @@ public class KoolAppController {
 		return service.findItemsByBrandAndDiscount(brand, discount);
 	}
 	
+	@GetMapping("/findItemsByGender/{gender}")
+	public List<SkuItem> findItemsByGender(@PathVariable String gender) {
+		return service.findItemsByGender(gender);
+	}
+	
 }

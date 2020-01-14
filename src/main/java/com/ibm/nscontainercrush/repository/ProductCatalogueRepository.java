@@ -58,6 +58,16 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 			"       AND UPPER(pst.BRAND) = :brand " + 
 			"       AND pp.discount <= :discount";
 	
+	public static final String FIND_ITEMS_BY_GENDER = "select pst.item_number style_item_number, pst.description, pst.long_description, pst.catalogue_category, pst.brand,\r\n" + 
+			"	   psk.ITEM_NUMBER sku_item_number, psk.SKU_UNIT_OF_MEASURE, psk.SKU_ATTRIBUTE1, psk.SKU_ATTRIBUTE2," + 
+			"       psk.SKU_ATTRIBUTE_VALUE1, psk.SKU_ATTRIBUTE_VALUE2," + 
+			"       pp.PRICE_ID, pp.LIST_PRICE, pp.DISCOUNT, pp.IN_STOCK, pp.PRICE_EFFECTIVE_DATE" + 
+			"       FROM XXIBM_PRODUCT_CATALOGUE pc, XXIBM_PRODUCT_STYLE pst, XXIBM_PRODUCT_SKU psk, XXIBM_PRODUCT_PRICING pp" + 
+			"       WHERE pst.ITEM_NUMBER = psk.STYLE_ITEM" + 
+			"       AND psk.ITEM_NUMBER = pp.ITEM_NUMBER" + 
+			"       AND pst.CATALOGUE_CATEGORY = pc.COMMODITY " +
+			"       AND UPPER(pst.DESCRIPTION) like %:gender%  " ;
+	
 	@Query(value = FIND_SEGMENTS, nativeQuery = true)
 	public List<Object[]> findSegments();
 	
@@ -81,5 +91,8 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 	
 	@Query(value = FIND_ITEMS_BY_BRAND_AND_DISCOUNT, nativeQuery = true)
 	public List<Object[]> findItemsByBrandAndDiscount(@Param("brand") String brand, @Param("discount") float discount);
+	
+	@Query(value = FIND_ITEMS_BY_GENDER, nativeQuery = true)
+	public List<Object[]> findItemsByGender(@Param("gender") String gender);
 
 }

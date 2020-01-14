@@ -243,6 +243,29 @@ public class ProductCatalogueService {
 		return null;
 		
 	}
+	
+	/**
+	 * This method will be used to find the sku item list based on gender
+	 * @param brand
+	 * @param gender
+	 * @return List<SkuItem>
+	 */
+	public List<SkuItem> findItemsByGender(String gender) {
+		
+		if (!StringUtils.isEmpty(gender)) {
+			String genderStr = gender.toUpperCase();
+			List<Object[]> objList = productCatalogueRepository.findItemsByGender(genderStr);
+			if (logger.isInfoEnabled()) {
+				if (objList != null) {
+					logger.info("No of Items retrieved from DB: " + objList.size());
+				}
+			}
+			return processResults(objList);
+		} 
+		
+		return null;
+		
+	}
 
 	
 	/**
