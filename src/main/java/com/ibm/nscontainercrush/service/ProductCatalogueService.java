@@ -2,10 +2,12 @@ package com.ibm.nscontainercrush.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
@@ -17,11 +19,15 @@ import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
 import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.repository.ProductCatalogueRepository;
 import com.ibm.nscontainercrush.repository.ProductItemRepositoryImpl;
+import com.ibm.nscontainercrush.util.ContainerCrushUtil;
 
 @Service
 public class ProductCatalogueService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProductCatalogueService.class);
+	
+	@Autowired
+	private Environment env;
 	
 	@Autowired 
 	private ProductCatalogueRepository productCatalogueRepository;
@@ -189,17 +195,30 @@ public class ProductCatalogueService {
 	 */
 	public List<SkuItem> findItemsByText(String textStr) {
 		
-		List<Object[]> objList = null;
-		if (!StringUtils.isEmpty(textStr)) {
-			objList = productCatalogueRepository.findItemsByText(textStr.toUpperCase());
-			if (logger.isInfoEnabled()) {
-				if (objList != null) {
-					logger.info("No of Items retrieved from DB: " + objList.size());
+		if (!StringUtils.isEmptyOrWhitespace(textStr)) {
+			
+			String delimiter = ContainerCrushConstant.EMPTY_SPACE;
+			List<String> wordList = new ArrayList<>();
+			StringTokenizer st = new StringTokenizer(textStr, delimiter);
+			while (st.hasMoreElements()) {
+				wordList.add((String) st.nextElement());
+			}
+			
+			List<String> finalWordList = ContainerCrushUtil.getFilteredWords(wordList, env.getProperty("definedKeywords"));
+			List<Object[]> objList = null;
+			if (finalWordList != null && !finalWordList.isEmpty()) {
+				objList = productItemRepository.getProductItemsByTextArray(finalWordList);
+				if (logger.isInfoEnabled()) {
+					if (objList != null) {
+						logger.info("No of Items retrieved from DB: " + objList.size());
+					}
 				}
+				return processResults(objList);	
 			}
 		}
 		
-		return processResults(objList);
+		return null;
+		
 	}
 	
 	/**

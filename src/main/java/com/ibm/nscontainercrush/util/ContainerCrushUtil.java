@@ -11,17 +11,13 @@ import org.springframework.core.env.Environment;
 import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
 
 public class ContainerCrushUtil {
-	
-	@Autowired
-	private static Environment env;
-	
-	public static List<String> getFilteredWords(List<String> wordsExtracted) {
+		
+	public static List<String> getFilteredWords(List<String> wordsExtracted, String definedKeywords) {
 		List<String> filteredWordList = null;
 		List<String> definedKeywordList = null;
-		String definedKeywords = env.getProperty("definedKeywords");
 		if (wordsExtracted != null && !wordsExtracted.isEmpty()) {
 			filteredWordList = new ArrayList<>();
-			if (!StringUtils.isNoneEmpty(definedKeywords)) {
+			if (!StringUtils.isEmpty(definedKeywords)) {
 				String delimiter = ContainerCrushConstant.PIPE;
 				definedKeywordList = new ArrayList<>();
 
@@ -29,12 +25,11 @@ public class ContainerCrushUtil {
 				while (st.hasMoreElements()) {
 					definedKeywordList.add((String) st.nextElement());
 				}
-			}
-
-			for (String word : wordsExtracted) {
-				if (definedKeywordList.contains(word)) {
-					filteredWordList.add(word);
-				}
+				for (String word : wordsExtracted) {
+					if (definedKeywordList.contains(word)) {
+						filteredWordList.add(word);
+					}
+				}	
 			}
 		}
 

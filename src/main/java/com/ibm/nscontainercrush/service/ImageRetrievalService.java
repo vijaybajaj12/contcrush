@@ -69,7 +69,7 @@ public class ImageRetrievalService {
 					+ "&X-Amz-Signature=" + signature;
 
 		} catch (Exception ex) {
-			System.out.printf("Error: %s\n", ex.getMessage());
+			logger.error("Error occurred while retrieving images from cloud object storage " + ex.getMessage());
 		}
 
 		return requestUrl;

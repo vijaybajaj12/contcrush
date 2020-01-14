@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -30,11 +31,14 @@ public class VisualToTextService {
 	private VisualToTextConfiguration vttConfig;
 	
 	@Autowired
+	private Environment env;
+	
+	@Autowired
 	private ProductCatalogueService productCatalogueService;
 	
 	public List<SkuItem> retrieveItemsUsingVisualToTextConversion (byte[] bytes) throws Exception {
 		List<String> extractedWords = convertVisualToText(bytes);
-		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords);
+		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords, env.getProperty("definedKeywords"));
 		
 		return productCatalogueService.findItemsByTextArray(finalWordList);
 	}

@@ -9,6 +9,7 @@ public class ContainerCrushConstant {
 	public static final String LEFT_BRACE = "(";
 	public static final String RIGHT_BRACE = ")";
 	public static final String PIPE = "|";
+	public static final String EMPTY_SPACE = " ";
 	public static final String UNSIGNED_PAYLOAD = "UNSIGNED-PAYLOAD";
 	public static final String AWS4_HMAC_SHA256 = "AWS4-HMAC-SHA256";
 	

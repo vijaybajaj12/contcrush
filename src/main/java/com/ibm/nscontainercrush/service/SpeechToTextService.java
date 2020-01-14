@@ -15,6 +15,7 @@ import javax.sound.sampled.TargetDataLine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
@@ -41,6 +42,9 @@ public class SpeechToTextService {
 	@Autowired
 	private SpeechToTextConfiguration sttConfig;
 	
+	@Autowired
+	private Environment env;
+	
 	private SpeechRecognitionResults srResults;
 	
 	@Autowired
@@ -48,7 +52,7 @@ public class SpeechToTextService {
 	
 	public List<SkuItem> retrieveItemsUsingSpeechToTextConversion () throws Exception {
 		List<String> extractedWords = convertSpeechToText();
-		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords);
+		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords, env.getProperty("definedKeywords"));
 		
 		return productCatalogueService.findItemsByTextArray(finalWordList);
 	}
