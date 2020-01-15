@@ -2,7 +2,7 @@ package com.ibm.nscontainercrush.dto;
 
 import java.util.List;
 
-public class SkuItemResult {
+public class SkuItemResult extends BaseResponse{
 	
 	private List<SkuItem> skuItemList;
 

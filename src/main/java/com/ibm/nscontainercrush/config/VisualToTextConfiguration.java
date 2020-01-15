@@ -11,6 +11,7 @@ public class VisualToTextConfiguration {
 	private float baseConfidence;
 	private String versionDate;
 	private String serviceUrl;
+	private String classifierId;
 	
 	public String getAuthenticatorKey() {
 		return authenticatorKey;
@@ -35,5 +36,11 @@ public class VisualToTextConfiguration {
 	}
 	public void setServiceUrl(String serviceUrl) {
 		this.serviceUrl = serviceUrl;
+	}
+	public String getClassifierId() {
+		return classifierId;
+	}
+	public void setClassifierId(String classifierId) {
+		this.classifierId = classifierId;
 	}
 }
