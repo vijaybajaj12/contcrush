@@ -28,5 +28,15 @@ $scope.searchProduct = function (value) {
          //$window.location.href = url;
          $window.open(url, "blank");
     };
+
+$scope.searchProductbyCamera = function (value) {
+       // alert(value);
+        var url = "/uploadImage";
+         //$window.location.href = url;
+         $window.open(url, "blank",width=420);
+    };
+
+
+   
       
 });

@@ -48,9 +48,9 @@ public class WelcomeController {
           return new ModelAndView("koolAppSearchProd"); //view
     }
     
-    @GetMapping("/koolCamera")
-    public ModelAndView launchkoolCamera(){
-          return new ModelAndView("koolCamera"); //view
+    @GetMapping("/uploadImage")
+    public ModelAndView launchuploadImage(){
+          return new ModelAndView("uploadImage"); //view
     }
 
 }

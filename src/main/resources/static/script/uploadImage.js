@@ -35,8 +35,9 @@ angular.module('fupApp', [])
 
                 // SEND THE FILES.
                 $http(request)
-                    .success(function (d) {
-                        alert(d);
+                    .success(function (response) {
+                 	 $scope.comodity= response.skuItemList;
+                        alert(response.skuItemList);
                     })
                     .error(function () {
 					alert("error");
