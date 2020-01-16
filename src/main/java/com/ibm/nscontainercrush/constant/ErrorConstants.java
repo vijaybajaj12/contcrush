@@ -15,6 +15,7 @@ public final class ErrorConstants {
 	public static final String NOT_FOUND_EXCEPTION = "120";
 	public static final String REQUEST_TOO_LARGE_EXCEPTION = "130";
 	public static final String SERVICE_RESPONSE_EXCEPTION = "140";
-	public static final String APP_SPEC_ERROR = "120";
+	public static final String INTERRUPTED_EXCEPTION = "150";
+	public static final String LINE_UNAVAILABLE_EXCEPTION = "160";
 	public static final String NO_DATA_FOUND="No Record Found";
 }

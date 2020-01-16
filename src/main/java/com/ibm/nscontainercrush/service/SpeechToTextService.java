@@ -57,16 +57,10 @@ public class SpeechToTextService {
 		return productCatalogueService.findItemsByTextArray(finalWordList);
 	}
 	
-	public List<String> convertSpeechToText() throws Exception {
-		
-		try {
-			invokeWatsonSpeechToTextProcess();
-			List<String> extractedWords = extractWordsFromWatsonResult(srResults);
-			return extractedWords;
-		} catch (Exception e) {
-			logger.error("Error occurred while processing speech to text : " + e.getMessage());
-			throw new Exception("Error occurred while processing speech to text : " + e.getMessage());
-		}
+	public List<String> convertSpeechToText() throws LineUnavailableException, InterruptedException {
+		invokeWatsonSpeechToTextProcess();
+		List<String> extractedWords = extractWordsFromWatsonResult(srResults);
+		return extractedWords;
 	}
 		
 	/**
@@ -74,7 +68,7 @@ public class SpeechToTextService {
 	 * @throws InterruptedException
 	 * @throws LineUnavailableException
 	 */
-	private void invokeWatsonSpeechToTextProcess() throws InterruptedException, LineUnavailableException {
+	private void invokeWatsonSpeechToTextProcess() throws LineUnavailableException, InterruptedException {
 		Authenticator authenticator = new IamAuthenticator(sttConfig.getAuthenticatorKey());
 		SpeechToText service = new SpeechToText(authenticator);
 		String[] keywordsArray = {"shirt", "trouser", "Coat", "Skirt","Blouse"};

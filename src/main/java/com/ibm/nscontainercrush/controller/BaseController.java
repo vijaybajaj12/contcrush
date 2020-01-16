@@ -2,6 +2,8 @@ package com.ibm.nscontainercrush.controller;
 
 import java.sql.SQLException;
 
+import javax.sound.sampled.LineUnavailableException;
+
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.RequestTooLargeException;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
@@ -26,7 +28,13 @@ public class BaseController {
 		} else if (e instanceof ServiceResponseException) {
 			res.setErrorCode(ErrorConstants.SERVICE_RESPONSE_EXCEPTION);
 			res.setErrorDesc(e.getStackTrace()[0].toString());
-		} else {
+		} else if (e instanceof InterruptedException) {
+			res.setErrorCode(ErrorConstants.INTERRUPTED_EXCEPTION);
+			res.setErrorDesc(e.getStackTrace()[0].toString());
+		} else if (e instanceof LineUnavailableException) {
+			res.setErrorCode(ErrorConstants.LINE_UNAVAILABLE_EXCEPTION);
+			res.setErrorDesc(e.getStackTrace()[0].toString());
+		}else {
 			res.setErrorCode(ErrorConstants.EXCEPTION);
 			res.setErrorDesc(e.getMessage());
 		}
