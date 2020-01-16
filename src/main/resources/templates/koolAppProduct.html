@@ -22,10 +22,12 @@
 			<div class="col-md-4" ng-repeat="c in comodity" >
 				    <div class="thumbnail">
 			    		  <a href="#">
-			        	   <img src="{{c.imageRetrievalUrl}}" style="width:100%; " >
+			        	   <img src="{{c.imageRetrievalUrl}}" style="width:100%; height:250px" >
 			        		<div class="caption">
+			        		<p>{{c.styleDescription}}</p>
 			            	<p>{{c.skuAttribute1}}: {{c.skuAttributeValue1}}</p>
 			            	<p>{{c.skuAttribute2}}: {{c.skuAttributeValue2}}</p>
+			            	<p>Price: ${{c.listPrice}}</p>
 			      		    </div>
 			      		</a>
 			    	 </div>
