@@ -1,4 +1,4 @@
-# Getting Started # Sanjoy Sa #Vijay
+# Getting Started # Sanjoy Sa #Vijay Bajaj
 
 ### Reference Documentation
 For further reference, please consider the following sections:
