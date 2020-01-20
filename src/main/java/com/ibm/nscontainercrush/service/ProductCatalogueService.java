@@ -253,7 +253,7 @@ public class ProductCatalogueService {
 	public List<SkuItem> findItemsByGender(String gender) {
 		
 		if (!StringUtils.isEmpty(gender)) {
-			String genderStr = gender.toUpperCase();
+			String genderStr = ContainerCrushConstant.EMPTY_SPACE + gender.toUpperCase();
 			List<Object[]> objList = productCatalogueRepository.findItemsByGender(genderStr);
 			if (logger.isInfoEnabled()) {
 				if (objList != null) {

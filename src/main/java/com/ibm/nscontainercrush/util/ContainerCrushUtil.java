@@ -26,7 +26,7 @@ public class ContainerCrushUtil {
 				for (String word : wordsExtracted) {
 					if (!StringUtils.isEmpty(word)) {
 						if (definedKeywordList.contains(word.toLowerCase())) {
-							filteredWordList.add(word);
+							filteredWordList.add(ContainerCrushConstant.EMPTY_SPACE + word);
 						}
 					}
 				}	
