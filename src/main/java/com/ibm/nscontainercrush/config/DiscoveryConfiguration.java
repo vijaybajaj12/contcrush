@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("dis")
 public class DiscoveryConfiguration {
 	
-	
 	private String authenticatorKey;
 	private String versionDate;
 	private String serviceUrl;
