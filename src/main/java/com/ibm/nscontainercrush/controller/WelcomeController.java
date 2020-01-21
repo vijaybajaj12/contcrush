@@ -62,5 +62,10 @@ public class WelcomeController {
           return new ModelAndView("koolAppProdbyGender"); //view
     }
 
+    @GetMapping("/koolAppConvertSpeechToText")
+    public ModelAndView launchkoolAppConvertSpeechToText(){
+          return new ModelAndView("koolAppConvertSpeechToText"); //view
+    }
+
 
 }
