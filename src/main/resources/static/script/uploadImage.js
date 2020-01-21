@@ -7,7 +7,6 @@ angular.module('fupApp', [])
                     onChange(scope, { $files: event.target.files });
                 });
             };
-
             return {
                 link: fn_link
             }
@@ -30,14 +29,13 @@ angular.module('fupApp', [])
                     headers: {
                         'Content-Type': undefined
                     }
-                                   
+        
                 };
-
                 // SEND THE FILES.
                 $http(request)
                     .success(function (response) {
                  	 $scope.comodity= response.skuItemList;
-                        alert(response.skuItemList);
+                        alert(response.data.skuItemList);
                     })
                     .error(function () {
 					alert("error");

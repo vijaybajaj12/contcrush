@@ -6,17 +6,16 @@ angular.module('koolAppSearch', [])
  $scope.hide=0;
       $http.get('/koolApp/findItemsByText/'+$scope.text).
         then(function(response) {
-            $scope.comodity= response.data;
+        //alert('id'+ response.data.skuItemList);
+            $scope.comodity= response.data.skuItemList;
             $scope.show=1;
-            if(response.data=="")
+            if(response.skuItemList=="")
             {
                  	$scope.hide=1;
+                 	
             }
             
- 			//alert('id'+ response.data);
+ 			
          });
-         
-             
- 
-    
+      
 });

@@ -36,6 +36,12 @@ $scope.searchProductbyCamera = function (value) {
          $window.open(url, "blank",width=420);
     };
 
+$scope.searchSpeekToText = function () {
+       // alert(value);
+        var url = "/koolAppConvertSpeechToText";
+         //$window.location.href = url;
+         $window.open(url, "blank");
+    };
 
    
       
