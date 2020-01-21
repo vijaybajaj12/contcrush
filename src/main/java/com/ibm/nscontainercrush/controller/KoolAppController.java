@@ -57,7 +57,7 @@ public class KoolAppController extends BaseController{
 	
 	@GetMapping("/findItemsByText/{text}")
 	public SkuItemResult findItemsByText(@PathVariable String text) {
-		SkuItemResult result = null;
+		SkuItemResult result = new SkuItemResult();
 		boolean success=false;
 		try {
 			List<SkuItem> skuItemList = service.findItemsByText(text);
