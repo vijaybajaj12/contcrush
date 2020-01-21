@@ -51,6 +51,7 @@ public class ContainerCrushUtil {
 					strBuilder.append(str).append(ContainerCrushConstant.EMPTY_SPACE);
 				}
 			}
+			textStr = strBuilder.toString();
 		}
 		
 		return textStr;
