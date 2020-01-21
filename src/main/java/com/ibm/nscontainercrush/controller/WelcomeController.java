@@ -17,7 +17,7 @@ public class WelcomeController {
     @Value("${welcome.message}")
     private String message;
 
-    private List<String> tasks = Arrays.asList("Sanjoy SA", "Vijay Bajaj", "Sanjib Pal", "Amitava Nandy", "Arkoprava Mukherjee");
+    private List<String> tasks = Arrays.asList("Sanjoy SA", "Vijay Bajaj", "Sanjib Pal", "Amitava Nandy", "Arkaprava Mukherjee");
 
     @GetMapping("/")
     public ModelAndView main(Model model) {
@@ -51,6 +51,11 @@ public class WelcomeController {
     @GetMapping("/uploadImage")
     public ModelAndView launchuploadImage(){
           return new ModelAndView("uploadImage"); //view
+    }
+    
+    @GetMapping("/launchLocation")
+    public ModelAndView launchLocation(){
+          return new ModelAndView("Location"); //view
     }
 
 }

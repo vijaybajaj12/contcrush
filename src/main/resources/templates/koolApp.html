@@ -255,6 +255,93 @@ transform:translate(0, -50%);
   visibility: visible;
   opacity: 1;
 }
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   background-color: red;
+   width: 100%;
+   font-family: Monotype Corsiva;
+   font-size: 15px;
+   color: white; 
+   text-align: right;
+ }
+
+
+ /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  /* Location of the box */
+  left: 0;
+  top: 8%;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background:url("/images/Background 2.jpg");;
+  margin: auto;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+/* The Close Button */
+.close {
+  color: #F40505;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+ 
+
+h {
+    color:#EE3C04;
+    align: center;
+    font-family: Arial, serif;
+    font-size: 60px; 
+}
+p1 {
+
+    color:#D67303;
+    font-family: Arial, serif;
+    font-size: 30px; 
+}
+
+table {
+ width: 100%;
+ font-family : Times New Roman;
+ font-size: 20px;
+ }
+ 
+ th{
+  padding: 15px;
+  background-color: #BDEAE4;
+  text-align: center;
+  font-family : Times New Roman;
+  font-size: 20px;
+  color: #B60013;
+ }
+ td {
+  padding: 15px;
+  text-align: center;
+  font-family : Times New Roman;
+  font-size: 20px;
+  color: #F7FE00;
+ }
 </style>
 <script>
 /* Size Implementation of Search Box */
@@ -311,18 +398,53 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
         </button>
         </div>
        </div>
-      <div class="navbar-form navbar-left" action="/getLocation">
+     <form class="navbar-form navbar-left" action="/launchLocation">
      <div class="input-group">
-    <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SEARCH YOUR LOCATION">
+     <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SEARCH YOUR LOCATION">
         <i class="glyphicon glyphicon-map-marker"></i>
         </button>
         </div>
-       </div>   
+       </form>   
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#myPage" data-toggle="tooltip" data-placement="bottom" title="HOME"><span class="glyphicon glyphicon-home"></span></a></li>                                    
+        <li><a href="/launchKoolApp" data-toggle="tooltip" data-placement="bottom" title="HOME"><span class="glyphicon glyphicon-home"></span></a></li>                                    
         <li><a href="#band" data-toggle="tooltip" data-placement="bottom" title="LOGIN"><span class="glyphicon glyphicon-user"></span></a></li>
-        <li><a href="#tour"><b>CONTACT</b></a></li>
+         <li>
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn" style="border:0; background-color:#08A4C4; color:#211B65; margin-top:5px; width:100px; height:40px;">CONTACTS</button>
+          <!-- The Modal -->
+        <div id="myModal" class="modal">
+         <!-- Modal content -->
+        <div class="modal-content">
+        <table class="example1">
+        <tr>
+        <th><b>Name</b></th> 
+        <th><b>Email</b> <button type="submit" class="close">&times;</button></th>
+        </tr>
+        <tr>
+        <td><b>Sanjoy Sa</b></td>
+        <td><b>sanjosa1@in.ibm.com</b></td>
+        </tr>
+        <tr>
+        <td><b>Vijay Bajaj</b></td>
+        <td><b>vijay.bajaj@in.ibm.com</b></td>
+        </tr>
+        <tr>
+        <td><b>Sanjib Pal</b></td>
+        <td><b>sanjipal@in.ibm.com</b></td>
+        </tr>
+        <tr>
+        <td><b>Amitabha Nandy</b></td>
+        <td><b>aminandy@in.ibm.com</b></td>
+        </tr>
+        <tr>
+        <td><b>Arkaprava Mukherjee<b></td>
+        <td><b>arkamu09@in.ibm.com</b></td>
+        </tr>
+        </table>
+        </div>
+        </div>
+        <li>
         <li><a href="#contact" data-toggle="tooltip" data-placement="bottom" title="CART(0)"> <img src="/images/Shopping Cart.jpg" width=50px height=30px style="align:center"></a></li>
       </ul>
     </div>
@@ -419,8 +541,8 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
 				<div class="col-md-3" ng-show="show" ng-repeat="c in comodity">
 				    <div class="thumbnail" >
 			    		  <a href="koolAppProduct?Id={{c.commodityId}}" target="_blank">
-			        	   <img src="{{c.imageUrl}}" alt="Lights" style=" border: 10px solid #A5C5D1; width:100%" class="img-rounded">
-			        		<div class="caption" style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:20px; text-align:center"  height="150px">
+			        	   <img src="{{c.imageUrl}}" alt="Lights" style="style="border: 10px solid #A5C5D1; width:250px; height:250px;" class="img-rounded">
+			        		<div class="caption" style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:20px; text-align:center">
 			            	<p>{{c.commodityName}}</p>
 			      		  </div>
 			      		</a>
@@ -519,5 +641,45 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
   </div>
  </div>
  </div>
+ 
+ 
+  <div class="container" ng-app="koolApp" style="position:absolute; top:1050px; left:1000px; width:100%; height:20%;">
+ <div>
+ </div>
+ </div>
+ <div class="footer">
+  <p style="margin-right:10px;"><b> Copyright @NS Container Crush</b></p>
+</div>
+ 
+  <script>
+//Get the modal
+ var modal = document.getElementById("myModal");
+ 
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+ 
+
+ 
 </body>
 </html>
