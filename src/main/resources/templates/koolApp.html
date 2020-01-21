@@ -386,14 +386,14 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
     </div>
     <div class="navbar-form navbar-left" action="/action_page.php">
     <div class="input-group">
-    <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SPEAK YOUR CHOICES">
+    <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SPEAK YOUR CHOICES" >
          <img src="/images/mic.jpg" width=18px height=18px style="align:center">
         </button>
         </div>
        </div>
-       <div class="navbar-form navbar-left" action="/action_page.php">
+       <div class="navbar-form navbar-left">
     <div class="input-group">
-    <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SEE YOUR LOOK">
+    <button class="btn btn-secondary" type="submit" data-toggle="tooltip" data-placement="bottom" title="SEE YOUR LOOK" ng-click="searchProductbyCamera();">
         <i class="glyphicon glyphicon-camera"></i>
         </button>
         </div>
@@ -541,7 +541,7 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
 				<div class="col-md-3" ng-show="show" ng-repeat="c in comodity">
 				    <div class="thumbnail" >
 			    		  <a href="koolAppProduct?Id={{c.commodityId}}" target="_blank">
-			        	   <img src="{{c.imageUrl}}" alt="Lights" style="style="border: 10px solid #A5C5D1; width:250px; height:250px;" class="img-rounded">
+			        	   <img src="{{c.imageUrl}}" alt="Lights" style="border: 10px solid #A5C5D1; width:250px; height:250px;" class="img-rounded">
 			        		<div class="caption" style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:20px; text-align:center">
 			            	<p>{{c.commodityName}}</p>
 			      		  </div>
@@ -555,27 +555,27 @@ $('input[type=radio]').bind('touchstart mousedown', function() {
  <div class="container-fluid" ng-app="koolApp" ng-hide="$parent.SelectedClassId"  ng-controller="koolCtrl" style="position:absolute; top:20px; left:25px;"> 
  <div style="position:absolute; top:340px; left:500px; border: 10px solid #A5C5D1;">
   <figure>
-  <img src="/images/Men-1.jpg" alt="Men" width=160px height=180px class="img-square" >
+  <a href="koolAppProdbyGender?Id=men" target="_blank"><img src="/images/Men-1.jpg" alt="Men" width=160px height=180px class="img-square" ></a>
   <figcaption style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:10px; text-align:center"><b>MEN</b></figcaption>
   </figure> 
  </div>
  <div style="position:absolute; top:340px; left:700px; border: 10px solid #A5C5D1;">
  <figure>
-  <img src="/images/Women-1.jpg" alt="Women" width=160px height=180px class="img-square" >
+  <a href="koolAppProdbyGender?Id=women" target="_blank"><img src="/images/Women-1.jpg" alt="Women" width=160px height=180px class="img-square" ></a>
   <figcaption style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:10px; text-align:center"><b>WOMEN</b></figcaption>
   </figure>
  </div>
  
  <div style="position:absolute; top:340px; left:900px; border: 10px solid #A5C5D1;">
  <figure>
-  <img src="/images/Kid-2.jpg" alt="Kid Boys" width=160px height=180px class="img-square" >
+  <a href="koolAppProdbyGender?Id=boys"  target="_blank"><img src="/images/Kid-2.jpg" alt="Kid Boys" width=160px height=180px class="img-square" ></a>
   <figcaption style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:10px; text-align:center"><b>KIDS (Boys)</b></figcaption>
   </figure>
  </div>
  
  <div style="position:absolute; top:340px; left:1100px; border: 10px solid #A5C5D1;">
  <figure>
-  <img src="/images/Kid-1.jpg" alt="Kid Girls" width=160px height=180px class="img-square" >
+  <a href="koolAppProdbyGender?Id=girls" target="_blank"><img src="/images/Kid-1.jpg" alt="Kid Girls" width=160px height=180px class="img-square" ></a>
   <figcaption style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:10px; text-align:center"><b>KIDS (Girls)</b></figcaption>
   </figure>
  </div>
