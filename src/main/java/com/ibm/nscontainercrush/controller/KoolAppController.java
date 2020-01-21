@@ -51,8 +51,21 @@ public class KoolAppController extends BaseController{
 	}
 	
 	@GetMapping("/findItemsByCommodity/{commodityId}")
-	public List<SkuItem> findItemsByCommodity(@PathVariable String commodityId) {
-		return service.findItemsByCommodity(commodityId);
+	public SkuItemResult findItemsByCommodity(@PathVariable String commodityId) {
+		SkuItemResult result = new SkuItemResult();
+		boolean success=false;
+		try {
+			List<SkuItem> skuItemList = service.findItemsByCommodity(commodityId);
+			result.setSkuItemList(skuItemList);
+			success = true;
+		} catch (Exception e) {
+			logger.error("Exception occurred while finding items by text" + e);
+			result.setErrorDesc(e.getMessage());
+			setExceptionResponse(result, e);
+		} finally {
+			result.setSuccess(success);
+		}
+		return result;
 	}
 	
 	@GetMapping("/findItemsByText/{text}")
