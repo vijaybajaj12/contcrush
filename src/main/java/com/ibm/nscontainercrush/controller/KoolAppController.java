@@ -90,18 +90,57 @@ public class KoolAppController extends BaseController{
 	}
 	
 	@GetMapping("/findItemsByBrand/{brand}")
-	public List<SkuItem> findItemsByBrand(@PathVariable String brand) {
-		return service.findItemsByBrand(brand);
+	public SkuItemResult findItemsByBrand(@PathVariable String brand) {
+		SkuItemResult result = new SkuItemResult();
+		boolean success=false;
+		try {
+			List<SkuItem> skuItemList = service.findItemsByBrand(brand);
+			result.setSkuItemList(skuItemList);
+			success = true;
+		} catch (Exception e) {
+			logger.error("Exception occurred while finding items by brand" + e);
+			result.setErrorDesc(e.getMessage());
+			setExceptionResponse(result, e);
+		} finally {
+			result.setSuccess(success);
+		}
+		return result;
 	}
 	
 	@GetMapping("/findItemsByBrandAndDiscount/{brand}/{discount}")
-	public List<SkuItem> findItemsByBrandAndDiscount(@PathVariable String brand, @PathVariable float discount) {
-		return service.findItemsByBrandAndDiscount(brand, discount);
+	public SkuItemResult findItemsByBrandAndDiscount(@PathVariable String brand, @PathVariable float discount) {
+		SkuItemResult result = new SkuItemResult();
+		boolean success=false;
+		try {
+			List<SkuItem> skuItemList = service.findItemsByBrandAndDiscount(brand, discount);
+			result.setSkuItemList(skuItemList);
+			success = true;
+		} catch (Exception e) {
+			logger.error("Exception occurred while finding items by brand and discount" + e);
+			result.setErrorDesc(e.getMessage());
+			setExceptionResponse(result, e);
+		} finally {
+			result.setSuccess(success);
+		}
+		return result;
 	}
 	
 	@GetMapping("/findItemsByGender/{gender}")
-	public List<SkuItem> findItemsByGender(@PathVariable String gender) {
-		return service.findItemsByGender(gender);
+	public SkuItemResult findItemsByGender(@PathVariable String gender) {
+		SkuItemResult result = new SkuItemResult();
+		boolean success=false;
+		try {
+			List<SkuItem> skuItemList = service.findItemsByGender(gender);
+			result.setSkuItemList(skuItemList);
+			success = true;
+		} catch (Exception e) {
+			logger.error("Exception occurred while finding items by gender" + e);
+			result.setErrorDesc(e.getMessage());
+			setExceptionResponse(result, e);
+		} finally {
+			result.setSuccess(success);
+		}
+		return result;
 	}
 	
 }
