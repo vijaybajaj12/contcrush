@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ListUtils;
 import org.thymeleaf.util.StringUtils;
 
 import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
@@ -201,7 +202,7 @@ public class ProductCatalogueService {
 
 		if (!StringUtils.isEmptyOrWhitespace(textStr)) {
 			KeywordSearchDto keywordSearchDto = discoveryService.prepareKeywordList(textStr);
-			if (keywordSearchDto != null) {
+			if (keywordSearchDto != null && isAnyListPresent(keywordSearchDto)) {
 				List<Object[]> objList = productItemRepository.getProductItemsByKeywords(keywordSearchDto);
 				if (logger.isInfoEnabled()) {
 					if (objList != null) {
@@ -214,6 +215,18 @@ public class ProductCatalogueService {
 
 		return null;
 
+	}
+	
+	private boolean isAnyListPresent(KeywordSearchDto KeywordSearchDto) {
+		boolean anyListAvailable = false;
+		if (KeywordSearchDto != null) {
+			if (!ListUtils.isEmpty(KeywordSearchDto.getBrands()) ||!ListUtils.isEmpty(KeywordSearchDto.getColors()) ||
+					!ListUtils.isEmpty(KeywordSearchDto.getCommodities()) || !ListUtils.isEmpty(KeywordSearchDto.getSizes())
+							|| !ListUtils.isEmpty(KeywordSearchDto.getGenders())) {
+					anyListAvailable = true;
+			}
+		}
+		return anyListAvailable; 
 	}
 	
 	/**
