@@ -11,7 +11,7 @@ public class DiscoveryConfiguration {
 	private String versionDate;
 	private String serviceUrl;
 	private String environmentId;
-	private float collectionId;
+	private String collectionId;
 	public String getAuthenticatorKey() {
 		return authenticatorKey;
 	}
@@ -36,10 +36,10 @@ public class DiscoveryConfiguration {
 	public void setEnvironmentId(String environmentId) {
 		this.environmentId = environmentId;
 	}
-	public float getCollectionId() {
+	public String getCollectionId() {
 		return collectionId;
 	}
-	public void setCollectionId(float collectionId) {
+	public void setCollectionId(String collectionId) {
 		this.collectionId = collectionId;
 	}
 	

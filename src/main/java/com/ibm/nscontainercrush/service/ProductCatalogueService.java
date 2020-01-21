@@ -15,6 +15,7 @@ import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
 import com.ibm.nscontainercrush.dto.ClassLevel;
 import com.ibm.nscontainercrush.dto.Commodity;
 import com.ibm.nscontainercrush.dto.Family;
+import com.ibm.nscontainercrush.dto.KeywordSearchDto;
 import com.ibm.nscontainercrush.dto.ProductCatalogueDto;
 import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.repository.ProductCatalogueRepository;
@@ -37,6 +38,9 @@ public class ProductCatalogueService {
 	
 	@Autowired
 	private ImageRetrievalService imageRetrievalService;
+	
+	@Autowired
+	private DiscoveryService discoveryService;
 	
 	/**
 	 * This method is used to retrieve all the segments from Product Catalogue
@@ -194,31 +198,22 @@ public class ProductCatalogueService {
 	 * @return List<SkuItem
 	 */
 	public List<SkuItem> findItemsByText(String textStr) {
-		
+
 		if (!StringUtils.isEmptyOrWhitespace(textStr)) {
-			
-			String delimiter = ContainerCrushConstant.EMPTY_SPACE;
-			List<String> wordList = new ArrayList<>();
-			StringTokenizer st = new StringTokenizer(textStr, delimiter);
-			while (st.hasMoreElements()) {
-				wordList.add((String) st.nextElement());
-			}
-			
-			List<String> finalWordList = ContainerCrushUtil.getFilteredWords(wordList, env.getProperty("definedKeywords"));
-			List<Object[]> objList = null;
-			if (finalWordList != null && !finalWordList.isEmpty()) {
-				objList = productItemRepository.getProductItemsByTextArray(finalWordList);
+			KeywordSearchDto keywordSearchDto = discoveryService.prepareKeywordList(textStr);
+			if (keywordSearchDto != null) {
+				List<Object[]> objList = productItemRepository.getProductItemsByKeywords(keywordSearchDto);
 				if (logger.isInfoEnabled()) {
 					if (objList != null) {
 						logger.info("No of Items retrieved from DB: " + objList.size());
 					}
 				}
-				return processResults(objList);	
+				return processResults(objList);
 			}
 		}
-		
+
 		return null;
-		
+
 	}
 	
 	/**

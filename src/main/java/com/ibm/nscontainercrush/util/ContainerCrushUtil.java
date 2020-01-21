@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.StringUtils;
+import org.thymeleaf.util.ListUtils;
 
 import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
 
@@ -36,5 +37,23 @@ public class ContainerCrushUtil {
 		return filteredWordList;
 	}
 
+	/**
+	 * This method will be used to convert a list of strings into text string
+	 * @param strList
+	 * @return
+	 */
+	public static String convertListToText(List<String> strList) {
+		String textStr = null;
+		if (!ListUtils.isEmpty(strList)) {
+			StringBuilder strBuilder = new StringBuilder();
+			for (String str : strList) {
+				if (!str.isEmpty()) {
+					strBuilder.append(str).append(ContainerCrushConstant.EMPTY_SPACE);
+				}
+			}
+		}
+		
+		return textStr;
+	}
 
 }

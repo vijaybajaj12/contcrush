@@ -22,7 +22,7 @@ import com.ibm.nscontainercrush.service.ProductCatalogueService;
 
 @RestController
 @RequestMapping(value = "/koolApp")
-public class KoolAppController {
+public class KoolAppController extends BaseController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(KoolAppController.class);
 	
@@ -56,8 +56,21 @@ public class KoolAppController {
 	}
 	
 	@GetMapping("/findItemsByText/{text}")
-	public List<SkuItem> findItemsByText(@PathVariable String text) {
-		return service.findItemsByText(text);
+	public SkuItemResult findItemsByText(@PathVariable String text) {
+		SkuItemResult result = null;
+		boolean success=false;
+		try {
+			List<SkuItem> skuItemList = service.findItemsByText(text);
+			result.setSkuItemList(skuItemList);
+			success = true;
+		} catch (Exception e) {
+			logger.error("Exception occurred while finding items by text" + e);
+			result.setErrorDesc(e.getMessage());
+			setExceptionResponse(result, e);
+		} finally {
+			result.setSuccess(success);
+		}
+		return result;
 	}
 	
 	@PostMapping("/findItemsByTextArray")

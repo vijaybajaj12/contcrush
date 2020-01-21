@@ -18,6 +18,7 @@ import com.ibm.cloud.sdk.core.service.exception.RequestTooLargeException;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.nscontainercrush.config.VisualToTextConfiguration;
 import com.ibm.nscontainercrush.constant.ContainerCrushConstant;
+import com.ibm.nscontainercrush.dto.KeywordSearchDto;
 import com.ibm.nscontainercrush.dto.SkuItem;
 import com.ibm.nscontainercrush.util.ContainerCrushUtil;
 import com.ibm.watson.visual_recognition.v3.VisualRecognition;
@@ -41,7 +42,8 @@ public class VisualToTextService {
 	@Autowired
 	private ProductCatalogueService productCatalogueService;
 	
-	
+	@Autowired
+	private DiscoveryService discoveryService;
 	
 	/**
 	 * This method is used to retrieve items based on results retrieved from watson visual to text service
@@ -51,9 +53,10 @@ public class VisualToTextService {
 	 */
 	public List<SkuItem> retrieveItemsUsingVisualToTextConversion (byte[] bytes) throws Exception{
 		List<String> extractedWords = convertVisualToText(bytes);
-		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords, env.getProperty("definedKeywords"));
-		
-		return productCatalogueService.findItemsByTextArray(finalWordList);
+		String text = ContainerCrushUtil.convertListToText(extractedWords);
+		//List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords, env.getProperty("definedKeywords"));
+		//KeywordSearchDto keywordSearchDto = discoveryService.prepareKeywordList(ContainerCrushUtil.convertListToText(extractedWords));
+		return productCatalogueService.findItemsByText(text);
 	}
 	
 	private List<String> convertVisualToText(byte[] bytes) throws Exception {
