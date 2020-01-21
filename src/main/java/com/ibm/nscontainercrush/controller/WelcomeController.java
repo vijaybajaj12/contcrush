@@ -57,5 +57,10 @@ public class WelcomeController {
     public ModelAndView launchLocation(){
           return new ModelAndView("Location"); //view
     }
+    @GetMapping("/koolAppProdbyGender")
+    public ModelAndView launchkoolAppProdbyGender(){
+          return new ModelAndView("koolAppProdbyGender"); //view
+    }
+
 
 }
