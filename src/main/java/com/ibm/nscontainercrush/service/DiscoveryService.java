@@ -49,9 +49,6 @@ public class DiscoveryService {
 		discovery.setServiceUrl(disConfig.getServiceUrl());
 		String environmentId = disConfig.getEnvironmentId();
 		String collectionId = disConfig.getCollectionId();
-//		String documentId = "acbe74e86cba7fc8349b05c7c75bb21e";
-//		String configurationId = "294b5651-e255-4bee-9ff9-d69f25e06fd7";
-
 		
 		logger.info("Querying the collection...");
 		QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -88,8 +85,8 @@ public class DiscoveryService {
 				keywordSearchDto.setColors(getKeywords(qryResult));
 			} else if (DocumentKeywordsEnum.get(qryResult.getId()).equals(DocumentKeywordsEnum.SIZE)) {
 				keywordSearchDto.setSizes(getKeywords(qryResult));
-			} else if (DocumentKeywordsEnum.get(qryResult.getId()).equals(DocumentKeywordsEnum.COMMODITY)) {
-				keywordSearchDto.setCommodities(getKeywords(qryResult));
+			} else if (DocumentKeywordsEnum.get(qryResult.getId()).equals(DocumentKeywordsEnum.DESCRIPTION)) {
+				keywordSearchDto.setDescriptions(getKeywords(qryResult));
 			}
 		}	
 	}	

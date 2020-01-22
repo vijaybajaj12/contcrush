@@ -9,7 +9,7 @@ public enum DocumentKeywordsEnum {
 	GENDER("ab9c31ecc95ff79b6224a05a7ff9da14"), 
 	COLOR("dce9818314ccf00bf9cb15d53b62b26a"),
     SIZE("8d3a65e0d6afd99c83e85ef90a803594") ,
-    COMMODITY("9de6807a8f564bc017638d1d60808a0a");
+    DESCRIPTION("9379f0b859e1e828fe9036a53a23113d");
 
     private final String documentId;
 
@@ -31,9 +31,6 @@ public enum DocumentKeywordsEnum {
     }
 
     public static DocumentKeywordsEnum get(String documentId) {
-//    	if (lookup.get(documentId).equals(DocumentKeywordsEnum.COLOR)) {
-//    		
-//    	}
         return lookup.get(documentId);
     }
     

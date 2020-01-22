@@ -52,9 +52,10 @@ public class SpeechToTextService {
 	
 	public List<SkuItem> retrieveItemsUsingSpeechToTextConversion () throws Exception {
 		List<String> extractedWords = convertSpeechToText();
-		List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords, env.getProperty("definedKeywords"));
-		
-		return productCatalogueService.findItemsByTextArray(finalWordList);
+		String text = ContainerCrushUtil.convertListToText(extractedWords);
+		return productCatalogueService.findItemsByText(text);
+		//List<String> finalWordList = ContainerCrushUtil.getFilteredWords(extractedWords, env.getProperty("definedKeywords"));
+		//return productCatalogueService.findItemsByTextArray(finalWordList);
 	}
 	
 	public List<String> convertSpeechToText() throws LineUnavailableException, InterruptedException {

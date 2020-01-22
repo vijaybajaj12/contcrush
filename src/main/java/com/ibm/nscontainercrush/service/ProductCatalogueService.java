@@ -221,7 +221,7 @@ public class ProductCatalogueService {
 		boolean anyListAvailable = false;
 		if (KeywordSearchDto != null) {
 			if (!ListUtils.isEmpty(KeywordSearchDto.getBrands()) ||!ListUtils.isEmpty(KeywordSearchDto.getColors()) ||
-					!ListUtils.isEmpty(KeywordSearchDto.getCommodities()) || !ListUtils.isEmpty(KeywordSearchDto.getSizes())
+					!ListUtils.isEmpty(KeywordSearchDto.getDescriptions()) || !ListUtils.isEmpty(KeywordSearchDto.getSizes())
 							|| !ListUtils.isEmpty(KeywordSearchDto.getGenders())) {
 					anyListAvailable = true;
 			}

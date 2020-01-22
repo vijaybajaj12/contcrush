@@ -86,21 +86,21 @@ public class KoolAppController extends BaseController{
 		return result;
 	}
 	
-	@PostMapping("/findItemsByTextArray")
-	public List<SkuItem> findItemsByTextArray(@RequestBody List<String> text) {
-		return service.findItemsByTextArray(text);
-	}
-	
-	@PostMapping("/findItemsByStringArray")
-	public SkuItemResult findItemsByStringArray(@RequestBody List<String> text) {
-		SkuItemResult result = null;
-		List<SkuItem> skuItemList = service.findItemsByTextArray(text);
-		if (skuItemList != null && !skuItemList.isEmpty()) {
-			result = new SkuItemResult();
-			result.setSkuItemList(skuItemList);
-		}
-		return result;
-	}
+//	@PostMapping("/findItemsByTextArray")
+//	public List<SkuItem> findItemsByTextArray(@RequestBody List<String> text) {
+//		return service.findItemsByTextArray(text);
+//	}
+//	
+//	@PostMapping("/findItemsByStringArray")
+//	public SkuItemResult findItemsByStringArray(@RequestBody List<String> text) {
+//		SkuItemResult result = null;
+//		List<SkuItem> skuItemList = service.findItemsByTextArray(text);
+//		if (skuItemList != null && !skuItemList.isEmpty()) {
+//			result = new SkuItemResult();
+//			result.setSkuItemList(skuItemList);
+//		}
+//		return result;
+//	}
 	
 	@GetMapping("/findItemsByBrand/{brand}")
 	public SkuItemResult findItemsByBrand(@PathVariable String brand) {
