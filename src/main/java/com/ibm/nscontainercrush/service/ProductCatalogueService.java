@@ -353,7 +353,7 @@ public class ProductCatalogueService {
 					skuItem.setListPrice((String)obj[12]);
 				}
 				if (obj[13] != null) {
-					skuItem.setDiscount((String)obj[13]);
+					skuItem.setDiscount(ContainerCrushUtil.convertIntoDiscountPercent((String)obj[13]));
 				}
 				if (obj[14] != null) {
 					skuItem.setInStock((String)obj[14]);

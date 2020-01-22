@@ -56,6 +56,7 @@ public interface ProductCatalogueRepository extends JpaRepository<ProductCatalog
 			"       AND psk.ITEM_NUMBER = pp.ITEM_NUMBER" + 
 			"       AND pst.CATALOGUE_CATEGORY = pc.COMMODITY " +
 			"       AND UPPER(pst.BRAND) = :brand " + 
+			"       AND pp.discount > 0 " + 
 			"       AND pp.discount <= :discount";
 	
 	public static final String FIND_ITEMS_BY_GENDER = "select pst.item_number style_item_number, pst.description, pst.long_description, pst.catalogue_category, pst.brand,\r\n" + 

@@ -56,5 +56,16 @@ public class ContainerCrushUtil {
 		
 		return textStr;
 	}
+	
+	/**
+	 * This method will be used to multiply discount value by 100
+	 * @param discount
+	 * @return
+	 */
+	public static String convertIntoDiscountPercent(String discount) {
+		double disc = Double.valueOf(discount) * 100;
+		int i = (int) disc;
+		return String.valueOf(i);		
+	}
 
 }
