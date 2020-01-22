@@ -54,7 +54,9 @@ public class KoolAppController extends BaseController{
 		boolean success=false;
 		try {
 			List<SkuItem> skuItemList = service.findItemsByCommodity(commodityId);
-			result.setSkuItemList(skuItemList);
+			if (skuItemList != null) {
+				result.setSkuItemList(skuItemList);
+			}
 			success = true;
 		} catch (Exception e) {
 			logger.error("Exception occurred while finding items by text" + e);
@@ -108,7 +110,9 @@ public class KoolAppController extends BaseController{
 		boolean success=false;
 		try {
 			List<SkuItem> skuItemList = service.findItemsByBrand(brand);
-			result.setSkuItemList(skuItemList);
+			if (skuItemList != null) {
+				result.setSkuItemList(skuItemList);
+			}
 			success = true;
 		} catch (Exception e) {
 			logger.error("Exception occurred while finding items by brand" + e);
@@ -126,7 +130,9 @@ public class KoolAppController extends BaseController{
 		boolean success=false;
 		try {
 			List<SkuItem> skuItemList = service.findItemsByBrandAndDiscount(brand, discount);
-			result.setSkuItemList(skuItemList);
+			if (skuItemList != null) {
+				result.setSkuItemList(skuItemList);
+			}
 			success = true;
 		} catch (Exception e) {
 			logger.error("Exception occurred while finding items by brand and discount" + e);
@@ -144,7 +150,9 @@ public class KoolAppController extends BaseController{
 		boolean success=false;
 		try {
 			List<SkuItem> skuItemList = service.findItemsByGender(gender);
-			result.setSkuItemList(skuItemList);
+			if (skuItemList != null) {
+				result.setSkuItemList(skuItemList);
+			}
 			success = true;
 		} catch (Exception e) {
 			logger.error("Exception occurred while finding items by gender" + e);

@@ -29,9 +29,9 @@ margin-left: 600px;
 <body class="example1">
 <div ng-app="koolAppSearch" ng-controller="ProductListController" style="background:url("/images/Background 2.jpg");">  
 	<div class="container-fluid">
-		<div class="well well-sm" style="background-color:#08A4C4;">
-		<h1>Product List</h1>      
-    </div>
+		<div ng-hide="hide" class="well well-sm" style="background-color:#08A4C4;">
+		<h1>Product List</h1>   
+		</div>   
 	<div class="row" style="position:absolute; left:220px;">
          <div class="col-sm-10" style="background:url("/images/Background 2.jpg");" ng-show="show">
 			<div class="col-md-3" ng-repeat="c in comodity" >
@@ -48,8 +48,7 @@ margin-left: 600px;
 			    	 </div>
 		    	</div>
 	       </div>       
-	</div>
-		  
+	</div>	  
 	<div class="jumbotron" ng-show="hide" style="background-color:#C0EAF1; position:absolute; left:400px; width:800px; height:150px;">
     <h1 style="font-size:30px; color: #FF0747; margin:0;" >Ooops !!! No Product available.</h1>      
     <h2 style="font-size:20px; color: #8E19A1;">Products are coming soon.</h2>

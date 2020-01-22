@@ -6,7 +6,7 @@ angular.module('koolAppProdbyGender', [])
         then(function(response) {
             $scope.brand= response.data.skuItemList;
             $scope.show=1;
-            alert(response.data.skuItemList);
+            //alert(response.data.skuItemList);
             if(response.data.skuItemList=="")
             {
                  	$scope.hide=1;

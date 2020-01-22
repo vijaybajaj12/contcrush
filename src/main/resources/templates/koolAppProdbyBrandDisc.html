@@ -30,7 +30,7 @@ margin-left: 600px;
 <body class="example1">
 <div ng-app="koolAppProdBrandDisc" ng-controller="ProductListController" style="background:url("/images/Background 2.jpg");">  
 	<div class="container-fluid">
-		<div class="well well-sm" style="background-color:#08A4C4;">
+		<div ng-hide="hide" class="well well-sm" style="background-color:#08A4C4;">
 		<h1>Product List</h1>      
     </div>
 	<div class="row" style="position:absolute; left:220px;">
@@ -40,9 +40,10 @@ margin-left: 600px;
 			    		  <a href="#">
 			        	   <img src="{{b.imageRetrievalUrl}}"style="border: 10px solid #A5C5D1; width:300px; height:300px" class="img-square">
 			        		<div class="caption" style="padding:10px; background-color:#A5C5D1; color:black; font-family:Times New Roman; font-size:20px; text-align:center;">
-			        		<p>{{b.skuItemNumber}}</p>
+			        		<p>{{b.styleDescription}}</p>
 			            	<p>{{b.skuAttribute1}}: {{b.skuAttributeValue1}}</p>
 			            	<p>{{b.skuAttribute2}}: {{b.skuAttributeValue2}}</p>
+			            	<p>{{b.discount}}% OFF </p>
 			            	<p>Price: $.{{b.listPrice}}</p>
 			      		    </div>
 			      		</a>

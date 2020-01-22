@@ -5,9 +5,9 @@ angular.module('koolAppProductApp', [])
  $scope.hide=0;
       $http.get('/koolApp/findItemsByCommodity/'+$scope.commodityId).
         then(function(response) {
-            $scope.comodity= response.data;
+            $scope.comodity= response.data.skuItemList;;
             $scope.show=1;
-            if(response.data=="")
+            if(response.data.skuItemList=="")
             {
                  	$scope.hide=1;
             }
