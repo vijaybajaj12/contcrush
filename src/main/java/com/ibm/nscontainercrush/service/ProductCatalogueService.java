@@ -296,7 +296,6 @@ public class ProductCatalogueService {
 		} 
 		
 		return null;
-		
 	}
 	
 	/**
