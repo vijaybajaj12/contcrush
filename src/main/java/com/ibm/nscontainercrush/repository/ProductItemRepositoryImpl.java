@@ -100,7 +100,7 @@ public class ProductItemRepositoryImpl {
 			query.append(ContainerCrushConstant.AND_OPERATOR).append(ContainerCrushConstant.LEFT_BRACE);
 			for (String str : keywordSearchDto.getGenders()) {
 				query.append(addlnQuery).append(ContainerCrushConstant.SINGLE_QUOTE)
-						.append(ContainerCrushConstant.PERCENT).append(str.toUpperCase()).append(ContainerCrushConstant.PERCENT)
+						.append(ContainerCrushConstant.PERCENT).append(ContainerCrushConstant.EMPTY_SPACE + str.toUpperCase()).append(ContainerCrushConstant.PERCENT)
 						.append(ContainerCrushConstant.SINGLE_QUOTE);
 				if (k < keywordSearchDto.getGenders().size()) {
 					query.append(ContainerCrushConstant.OR_OPERATOR);
@@ -145,15 +145,15 @@ public class ProductItemRepositoryImpl {
 		}
 		
 		//Query generation for commodities matching
-		if (!ListUtils.isEmpty(keywordSearchDto.getCommodities())) {
-			final StringBuilder addlnQuery = new StringBuilder(" UPPER(pc.COMMODITY_NAME) like ");
+		if (!ListUtils.isEmpty(keywordSearchDto.getDescriptions())) {
+			final StringBuilder addlnQuery = new StringBuilder(" UPPER(pst.LONG_DESCRIPTION) like ");
 			int k = 1;
 			query.append(ContainerCrushConstant.AND_OPERATOR).append(ContainerCrushConstant.LEFT_BRACE);
-			for (String str : keywordSearchDto.getCommodities()) {
+			for (String str : keywordSearchDto.getDescriptions()) {
 				query.append(addlnQuery).append(ContainerCrushConstant.SINGLE_QUOTE)
 						.append(ContainerCrushConstant.PERCENT).append(str.toUpperCase()).append(ContainerCrushConstant.PERCENT)
 						.append(ContainerCrushConstant.SINGLE_QUOTE);
-				if (k < keywordSearchDto.getCommodities().size()) {
+				if (k < keywordSearchDto.getDescriptions().size()) {
 					query.append(ContainerCrushConstant.OR_OPERATOR);
 				}
 				k++;

@@ -8,7 +8,7 @@ public class KeywordSearchDto {
 	private List<String> genders;
 	private List<String> colors;
 	private List<String> sizes;
-	private List<String> commodities;
+	private List<String> descriptions;
 	
 	public List<String> getBrands() {
 		return brands;
@@ -34,11 +34,11 @@ public class KeywordSearchDto {
 	public void setSizes(List<String> sizes) {
 		this.sizes = sizes;
 	}
-	public List<String> getCommodities() {
-		return commodities;
+	public List<String> getDescriptions() {
+		return descriptions;
 	}
-	public void setCommodities(List<String> commodities) {
-		this.commodities = commodities;
+	public void setDescriptions(List<String> descriptions) {
+		this.descriptions = descriptions;
 	}
 	
 }
